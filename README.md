@@ -1,4 +1,4 @@
-# ptex-base
+# uptex-base
 
 The bundle contains plain TeX format and documents for upTeX.
 
