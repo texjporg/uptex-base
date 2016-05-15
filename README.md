@@ -1,6 +1,6 @@
 # uptex-base
 
-The bundle contains plain TeX format and documents for upTeX.
+The bundle contains plain TeX format and documents, samples for upTeX.
 
 ## Repository
 
@@ -16,6 +16,6 @@ the 3-clause BSD license (see LICENSE).
 
 ## Release Date
 
-2016-04-17
+2016-05-16
 
 Japanese TeX Development Community
