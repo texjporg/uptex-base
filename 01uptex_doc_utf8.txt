@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2016.02.20 Ver1.21
+2017.01.15 Ver1.22
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -449,9 +449,8 @@ dvipdfmx  TeX Live svn に r24509 あたりで取り込まれた。
 dvi2tty   TeX Live svn に r24634 あたりで取り込まれた。
   dvi2tty の NTT JTeX/pTeX 対応版を upTeX 対応にした。
   オプション -J を変更し、 -U, -E を新設した。
-  さらにT1,TS1,OT2,T2A,T2B,T2C,X2エンコーディング対応にし、
-  TeX Liveへの取り込みを提案していたが、
-  一旦取り下げ、upTeX packageとは別扱いとする。
+  さらに、T1,TS1,OT2,T2A,T2B,T2C,X2エンコーディング対応機能が
+  TeX Live に r39942 あたりで取り込まれた。
 mendex    TeX Live r33962 あたりで、表記をUnicode対応とした。
 upmendex  mendex をベースに新規に作成した。
   mendex の内部コードをUnicode化し、ICUによるソート、

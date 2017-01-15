@@ -1,5 +1,34 @@
 ### ChangeLog / 変更履歴
 
+2017.01.15 Ver1.22-20170115a
+  TeXLive svn r42954 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-9.0.0.txt Date: 2016-02-05, 23:48:00 GMT [KW]".
+    * upbibtex.ch: Fix bug on "substring$".
+    * COPYRIGHT, COPYRIGHT.ja:
+      Update copyright name and year.
+      Rename from COPYRIGHT.utf8 to COPYRIGHT.ja .
+  Build/source/texk/makejvf:
+    * uniblock.c: Update reference of Unicode blocks Blocks-9.0.0.txt .
+    * main.c: Update version number.
+  Master/texmf-dist/source/fonts/uptex-fonts,
+  Master/texmf-dist/fonts/{cmap,tfm,vf}/uptex-fonts,
+  Master/texmf-dist/tex/uptex/uptex-base:
+    * Rename the directories
+  Master/texmf-dist/fonts/cmap/uptex-fonts/UTF8-UTF16:
+    * Update to Ver1.003.
+  uplatex:
+    * Removed. Now it is distributed at
+      https://github.com/texjporg/uplatex
+      http://www.ctan.org/pkg/uplatex
+  01uptex_doc_utf8.txt:
+    Update.
+
 2016.02.20 Ver1.21-20160220a
   TeXLive svn r39778 base
   Build/source/texk/web2c/uptexdir:
@@ -13,7 +42,7 @@
       Rename from COPYRIGHT.jis and convert encoding from ISO-2022-JP
       to UTF-8.
   Build/source/texk/makejvf:
-    * uniblock.c: Update references Unicode blocks Blocks-8.0.0.txt
+    * uniblock.c: Update references of Unicode blocks Blocks-8.0.0.txt
       and CMap files.
     * main.c: Update version number.
   Master/texmf-dist/source/fonts/uptex/jis:

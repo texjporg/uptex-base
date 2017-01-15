@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- unicode version of ASCII pTeX, pLaTeX
-2016.02.20 Ver1.21
+2017.01.15 Ver1.22
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 [ Contents ]
@@ -12,7 +12,7 @@ under bin/ :: utility
 under samples/ :: samples for test
 
 [ Building upTeX ]
-The sources work with TeXLive svn r39778 .
+The sources work with TeXLive svn r42954 .
 Ref. TeXLive and Subversion  http://www.tug.org/texlive/svn/
 
 [ Status ]
