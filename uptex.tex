@@ -1,12 +1,12 @@
 % This is the upTeX format (community edition)
-%   last update: texjporg 2016/05/17
+%   last update: texjporg 2017/03/12
 %
 %    pTeX format file:
 %       (C)copyright ASCII corporation,1987,1995,1997
 %    and modified for upTeX
 %
 \input plain
-\catcode`@=11 % at signs are no longer letters
+\catcode`@=11 % at signs act like letters
 \def\footnote#1{\let\@sf\empty % parameter #2 (the text) is read later
   \ifhmode\edef\@sf{\spacefactor\the\spacefactor}\/\fi
   \nobreak#1\@sf\vfootnote{#1}}
@@ -16,7 +16,7 @@
 \font\sevenmin=upjisr-h at 7pt
 \font\fivemin=upjisr-h at 5pt
 %
-\font\tengt=upjisg-h % ugothic(KANJI)
+\font\tengt=upjisg-h % gothic(KANJI)
 \font\sevengt=upjisg-h at 7pt
 \font\fivegt=upjisg-h at 5pt
 %
