@@ -1,6 +1,7 @@
 # uptex-base
 
-The bundle contains plain TeX format, documents, and samples for upTeX.
+The bundle contains plain TeX format, documents, and samples for
+upTeX and e-upTeX.
 
 ## Repository
 
