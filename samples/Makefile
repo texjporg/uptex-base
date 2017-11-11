@@ -1,23 +1,26 @@
-PTEX = ptex
 UPTEX = uptex
+PTEX = ptex
 UPLATEX = uplatex
 PLATEX = platex
+UPBIBTEX = upbibtex
+PBIBTEX = pbibtex
 DVIPS = dvips
 DVIPDFMX = dvipdfmx
 UPDVITYPE = updvitype
 PDVITYPE = pdvitype
 UPMPOST = upmpost
+PMPOST = pmpost
 DVI2TTYJ = dvi2tty -J
 DVI2TTYA = dvi2tty -A
 DVI2TTYU = dvi2tty -U
 EUPLATEX = uplatex
 EPLATEX = platex
-CONVBKMK = convbkmk.rb -g
-CONVBKMKO = convbkmk.rb -g -o
+CONVBKMK = convbkmk -g
+CONVBKMKO = convbkmk -g -o
 PS2PDF = ps2pdf
 
 all: misc kin widow uptex uplatex aozora adobe encswitch \
- jscman tfpl otf jbib jisuni dvi2tty bkmk consio
+ jscman tfpl otf jbib jisuni dvi2tty bkmk consio eplatex texxet
 
 misc: misch miscv
 
@@ -53,13 +56,13 @@ kin:
 	$(DVIPS) kinsoku-chk-utf8
 
 widow:
-	platex widow
+	$(PLATEX) widow
 	mv widow.dvi widow-platex.dvi
 	$(DVIPDFMX) widow-platex.dvi
-	uplatex-euc --kanji-internal=euc widow
+	$(UPLATEX) --kanji-internal=euc widow
 	mv widow.dvi widow-u-euc.dvi
 	$(DVIPDFMX) widow-u-euc.dvi
-	uplatex widow
+	$(UPLATEX) widow
 	mv widow.dvi widow-u-uptex.dvi
 	$(DVIPDFMX) widow-u-uptex.dvi
 
@@ -120,14 +123,14 @@ encswitch: encswitchj encswitchp encswitchu
 
 encswitchj:
 	for ie in euc sjis; do \
-		uptex -kanji=$$ie --kanji-internal=$$ie -fmt=uplatex-$$ie simple-jis.tex ; \
+		$(PLATEX) -kanji=$$ie --kanji-internal=$$ie simple-jis.tex ; \
 		perl check_enc.pl $$ie simple-jis.log simple-jis.aux || exit ; \
 		mv simple-jis.dvi simple-jis0-$$ie.dvi ; \
 		mv simple-jis.log simple-jis0-$$ie.log ; \
 		mv simple-jis.aux simple-jis0-$$ie.aux ; \
 		$(DVIPDFMX) simple-jis0-$$ie.dvi ; \
 	for fe in jis euc sjis utf8; do \
-		uptex -kanji=$$fe --kanji-internal=$$ie -fmt=uplatex-$$ie simple-$$fe.tex ; \
+		$(PLATEX) -kanji=$$fe --kanji-internal=$$ie simple-$$fe.tex ; \
 		perl check_enc.pl $$fe simple-$$fe.log simple-$$fe.aux || exit ; \
 		mv simple-$$fe.dvi simple-$$fe-$$ie.dvi ; \
 		mv simple-$$fe.log simple-$$fe-$$ie.log ; \
@@ -153,7 +156,7 @@ encswitchp:
 encswitchu:
 	for ie in uptex; do \
 	for fe in jis utf8; do \
-		uplatex -kanji=utf8 --kanji-internal=$$ie simple-u-$$fe.tex ; \
+		$(UPLATEX) -kanji=utf8 --kanji-internal=$$ie simple-u-$$fe.tex ; \
 		perl check_enc.pl $$ie simple-u-$$fe.log simple-u-$$fe.aux || exit ; \
 		mv simple-u-$$fe.dvi simple-u-$$fe-$$ie.dvi ; \
 		mv simple-u-$$fe.log simple-u-$$fe-$$ie.log ; \
@@ -190,10 +193,10 @@ jbibj:
 	for ie in euc ; do \
 	for be in euc uptex; do \
 	for fe in jis euc sjis utf8; do \
-		uptex -kanji=$$fe --kanji-internal=$$ie -fmt=uplatex-$$ie jbib1-jis.tex ; \
-		upbibtex -kanji=$$fe --kanji-internal=$$be jbib1-jis ; \
-		uptex -kanji=$$fe --kanji-internal=$$ie -fmt=uplatex-$$ie jbib1-jis.tex ; \
-		uptex -kanji=$$fe --kanji-internal=$$ie -fmt=uplatex-$$ie jbib1-jis.tex ; \
+		$(PLATEX) -kanji=$$fe --kanji-internal=$$ie jbib1-jis.tex ; \
+		$(UPBIBTEX) -kanji=$$fe --kanji-internal=$$be jbib1-jis ; \
+		$(PLATEX) -kanji=$$fe --kanji-internal=$$ie jbib1-jis.tex ; \
+		$(PLATEX) -kanji=$$fe --kanji-internal=$$ie jbib1-jis.tex ; \
 		perl check_enc.pl $$fe jbib1-jis.aux jbib1-jis.bbl || exit ; \
 		mv jbib1-jis.dvi jbib1-$$fe-$$be.dvi ; \
 		mv jbib1-jis.log jbib1-$$fe-$$be.log ; \
@@ -209,10 +212,10 @@ jbibu:
 	for ie in uptex; do \
 	for be in uptex; do \
 	for fe in utf8; do \
-		uplatex -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
-		upbibtex -kanji=$$fe --kanji-internal=$$be jbib2-utf8 ; \
-		uplatex -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
-		uplatex -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
+		$(UPLATEX) -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
+		$(UPBIBTEX) -kanji=$$fe --kanji-internal=$$be jbib2-utf8 ; \
+		$(UPLATEX) -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
+		$(UPLATEX) -kanji=$$fe --kanji-internal=$$ie jbib2-utf8.tex ; \
 		perl check_enc.pl $$fe jbib2-utf8.aux jbib2-utf8.bbl || exit ; \
 		mv jbib2-utf8.dvi jbib2-$$fe-$$be.dvi ; \
 		mv jbib2-utf8.log jbib2-$$fe-$$be.log ; \
@@ -229,8 +232,8 @@ pmpost: pmpostj pmpostu
 pmpostj:
 	for fe in jis euc sjis utf8; do \
 	for fn in area jstr; do \
-		$(UPMPOST) -kanji=$$fe -tex=uplatex-$$fe $$fn-$$fe.mp ; \
-		uplatex-$$fe $$fn-$$fe-incl.tex ; \
+		$(UPMPOST) -kanji=$$fe -tex="uplatex -kanji=$$fe" $$fn-$$fe.mp ; \
+		$(UPLATEX) -kanji=$$fe $$fn-$$fe-incl.tex ; \
 		$(DVIPS) $$fn-$$fe-incl.dvi ; \
 		$(DVIPDFMX) $$fn-$$fe-incl.dvi ; \
 	done ; \
@@ -241,7 +244,7 @@ pmpostu:
 	for fe in uptex; do \
 	for fn in area jstr; do \
 		$(UPMPOST) -kanji=$$fe -tex=uplatex $$fn-$$fe.mp ; \
-		uplatex $$fn-$$fe-incl.tex ; \
+		$(UPLATEX) $$fn-$$fe-incl.tex ; \
 		$(DVIPS) $$fn-$$fe-incl.dvi ; \
 		$(DVIPDFMX) $$fn-$$fe-incl.dvi ; \
 	done ; \
@@ -351,7 +354,7 @@ bkmk: bkmk_jis bkmk_utf8
 
 bkmk_jis: bkmk_docinfo
 	for en in jis ; do \
-	for up in platex uplatex-sjis uplatex-euc uplatex; do \
+	for up in platex uplatex; do \
 		rm bkmk-$$en.aux bkmk-$$en.out ; \
 		$$up bkmk-$$en.tex ; \
 		$$up "\def\withhyperref{dvipdfmx}\input" bkmk-$$en.tex ; \
@@ -430,13 +433,20 @@ texxet_eplatex:
 	$(DVIPDFMX) texxet-jis-eplatex.dvi ; \
 	$(DVI2TTYA) -w 62 -o texxet-jis-eplatex.dvi2tty -E u texxet-jis-eplatex.dvi
 
-# Following files are in the eptex distribution eptex-*.tar.bz2
-# eptexdoc.tex fam256p.tex fam256d.tex styles.tex
-eptexdoc: eptexdoc.tex fam256p.tex fam256d.tex styles.tex
-	$(EPLATEX) -kanji=utf8 eptexdoc.tex ; \
-	$(EPLATEX) -kanji=utf8 eptexdoc.tex ; \
-	$(DVIPDFMX) eptexdoc.dvi
+# Following files are in ptex-base
+eptexdoc-uplatex.tex:
+	cat `kpsewhich -format=doc eptexdoc.tex` | \
+	sed -e "s/]{jsarticle}/,uplatex]{jsarticle}/" > eptexdoc-uplatex.tex
+	cp -p `kpsewhich -format=doc fam256p.tex` .
+	cp -p `kpsewhich -format=doc fam256d.tex` .
+
+eptexdoc: eptexdoc-uplatex.tex
+	$(EUPLATEX) -kanji=utf8 eptexdoc-uplatex.tex ; \
+	$(EUPLATEX) -kanji=utf8 eptexdoc-uplatex.tex ; \
+	$(DVIPDFMX) eptexdoc-uplatex.dvi
+
 
 clean:
-	rm *.aux *.log *.dvi *.ps *.pdf *.mpx *.1 \
-		min10x-* umin10x-* *.out *.blg *.bbl *.pdvitype *.dvi2tty
+	rm -f *.aux *.log *.dvi *.ps *.pdf *.mpx *.1 \
+		min10x-* umin10x-* *.out *.blg *.bbl *.pdvitype *.dvi2tty \
+		jsclasses-uplatex.dtx eptexdoc-uplatex.tex fam256*.tex
