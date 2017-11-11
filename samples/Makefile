@@ -378,7 +378,7 @@ bkmk_jis: bkmk_docinfo
 
 bkmk_utf8: bkmk_docinfo
 	for en in utf8; do \
-	for up in uplatex-utf8 uplatex; do \
+	for up in uplatex; do \
 		rm bkmk-$$en.aux bkmk-$$en.out ; \
 		$$up "\def\withhyperref{dvipdfmx}\input" bkmk-$$en.tex ; \
 		$$up "\def\withhyperref{dvipdfmx}\input" bkmk-$$en.tex ; \
