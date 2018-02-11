@@ -32,10 +32,13 @@
 \DeclareRobustCommand\korrm{\kanjifamily{korrm}\selectfont}
 
 \begin{document}
-\kcatcode`ç=15% not cjk character
-\kcatcode`Ŕ=15
-\kcatcode`П=15
-\kcatcode`“=15
+%%% kcatcode  15: not cjk, 16: kanji, 17: kana, 18: other cjk char
+\kcatcode"A7=15% U+00A7:§  (Latin-1 Supplement, Common)
+%\kcatcode"C0=15% U+00C0:À  (Latin-1 Supplement, Latin-1 letters)
+%\kcatcode"100=15% U+0100:Ā  (Latin Extended-A)
+\kcatcode`П=15% U+041F:П (Cyrillic)
+\kcatcode`“=15% U+201C:“ (General Punctuation)
+\kcatcode`␣=15% U+2423: ␣ (Control Pictures)
 
 \selectlanguage{french}
 \section{フランス語 Français}
