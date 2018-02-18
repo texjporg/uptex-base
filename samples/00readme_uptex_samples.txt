@@ -60,7 +60,7 @@ jis_uni_variation.tex
 min10x.tfm, umin10x.tfm
   : test for {p,up}tftopl, {p,up}pltotf
 
-utfsmpl-uplatex.tex, otfsmpl-uplatex.tex, uotftest.tex
+utfsmpl-uplatex.tex, otfsmpl-uplatex.tex
   : test for UTF / OTF (japanese-otf) package by psitau-san
 
 bkmk-jis.tex, bkmk-utf8.tex, bkmk-docinfo.txt,

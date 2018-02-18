@@ -322,32 +322,12 @@ utf_sample:
 	$(DVIPS) utfsmpl-uplatex
 
 # It requires japanese-otf package by psitau-san.
-otf: otf_sample otf_uplatex otf_platex
+otf: otf_sample
 
 otf_sample:
 	$(UPLATEX) otfsmpl-uplatex
 	$(DVIPDFMX) otfsmpl-uplatex
 	$(DVIPS) otfsmpl-uplatex
-
-otf_uplatex:
-	for opt in default deluxe expert bold noreplace; do \
-		$(UPLATEX) "\def\option{$$opt}\def\class{ujarticle}\input" uotftest-utf8.tex ; \
-		mv uotftest-utf8.dvi uotftest-$$opt-h-uplatex.dvi ; \
-		$(DVIPDFMX) uotftest-$$opt-h-uplatex.dvi ; \
-		$(UPLATEX) "\def\option{$$opt}\def\class{utarticle}\input" uotftest-utf8.tex ; \
-		mv uotftest-utf8.dvi uotftest-$$opt-v-uplatex.dvi ; \
-		$(DVIPDFMX) uotftest-$$opt-v-uplatex.dvi ; \
-	done
-
-otf_platex:
-	for opt in default deluxe expert bold noreplace; do \
-		$(PLATEX) "\def\option{$$opt}\def\class{jarticle}\input" uotftest.tex ; \
-		mv uotftest.dvi uotftest-$$opt-h-platex.dvi ; \
-		$(DVIPDFMX) uotftest-$$opt-h-platex.dvi ; \
-		$(PLATEX) "\def\option{$$opt}\def\class{tarticle}\input" uotftest.tex ; \
-		mv uotftest.dvi uotftest-$$opt-v-platex.dvi ; \
-		$(DVIPDFMX) uotftest-$$opt-v-platex.dvi ; \
-	done
 
 # It requires ruby.
 bkmk: bkmk_jis bkmk_utf8

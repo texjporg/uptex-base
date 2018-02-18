@@ -25,8 +25,12 @@
 \kchar"9AD9橋さん\textbf{\kchar"9AD9橋さん}
 
 鼻濁音「\CID{16382}」とか\textbf{「\CID{13706}野家」}とかも出せます。
+
 % set3対応フォント+dviwareなら、「𠮷野家」もUTF-8で直接書ける。
-%\textbf{𠮷野家\char"20BB7野家\kchar"20BB7野家}
+\UTF{20BB7}野家\textbf{\UTF{20BB7}野家}%
+\CID{13706}野家\textbf{\CID{13706}野家}\\%
+𠮷野家\textbf{𠮷野家}\char"20BB7野家\textbf{\char"20BB7野家}%
+\kchar"20BB7野家\textbf{\kchar"20BB7野家}
 
 \CID{239}\CID{331}∀\CID{331}\CID{240}\CID{344}\CID{344}~~
 \CID{239}\CID{326}\CID{389}Д\CID{389}\CID{240}\CID{373}\CID{355}\CID{388}\CID{342}
@@ -51,8 +55,8 @@ U+9593 & 間 & \char"9593 & \kchar"9593 & \UTF{9593} & \CID{1554} & 日間 \\
 U+9592 & 閒 & \char"9592 & \kchar"9592 & \UTF{9592} & \CID{8685} & 月間 \\
 U+9AD8 & 高 & \char"9AD8 & \kchar"9AD8 & \UTF{9AD8} & \CID{2036} & 口高 \\
 U+9AD9 & 髙 & \char"9AD9 & \kchar"9AD9 & \UTF{9AD9} & \CID{8705} & 梯子高 \\
-%U+5409 & 吉 & \char"5409 & \kchar"5409 & \UTF{5409} & \CID{1634} & 士吉 \\
-%U+20BB7 & 𠮷 & \char"20BB7 & \kchar"20BB7 & --- & \CID{13706} & 土吉 \\
+U+5409 & 吉 & \char"5409 & \kchar"5409 & \UTF{5409} & \CID{1634} & 士吉 \\
+U+20BB7 & 𠮷 & \char"20BB7 & \kchar"20BB7 & \UTF{20BB7} & \CID{13706} & 土吉 \\
 \end{tabular}
 
 \vskip2zh
