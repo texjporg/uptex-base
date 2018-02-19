@@ -1,5 +1,29 @@
 ### ChangeLog / 変更履歴
 
+2018.02.24 Ver1.23-20180224a
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-10.0.0.txt Date: 2017-04-12, 17:30:00 GMT [KW]".
+      Exclude Latin-1 letters from "Latin-1 Supplement" block.
+      Set kcatcode of "Latin-1 letters", "Latin Extended-A" 15 (not_cjk).
+    * COPYRIGHT, COPYRIGHT.ja:
+      Update copyright year.
+  Build/source/texk/makejvf:
+    * Removed. Now it is distributed at
+      https://github.com/texjporg/tex-jp-build
+  Master/texmf-dist/{,source/}fonts/*:
+    * Removed. Now it is distributed at
+      https://github.com/texjporg/uptex-fonts
+      http://www.ctan.org/pkg/uptex-fonts
+  samples:
+    Update.
+  01uptex_doc_utf8.txt:
+    Update.
+
 2017.01.15 Ver1.22-20170115a
   TeXLive svn r42954 base
   Build/source/texk/web2c/uptexdir:

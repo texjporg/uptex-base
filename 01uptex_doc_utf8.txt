@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2017.01.15 Ver1.22
+2018.02.24 Ver1.23
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -81,22 +81,23 @@ CJKのレパートリーの範囲を和文の組版に利用する。8bit欧文�
 <3> 8bit 欧文コードの処理が可能になるよう、和文/欧文の切替え用の
     プリミティヴを拡張、新設する。
     pTeX では極めて限定的だった、欧文 Babel との整合性が向上する。
-    内部 Unicode 化を本当に行っているのは cjk トークンだけであり、
+    内部 Unicode 化を本当に行っているのは CJKトークンだけであり、
     欧文部分はオリジナルの欧文 TeX と同等である。
     pTeX から見ると欧文部分の機能が向上しているように見えるが、
     欧文 TeX から見ると
     pTeX が欧文 TeX の機能を阻害していた部分を取り除いただけである。
-<4> pTeX の和文トークンを cjkトークンとして扱い、
+<4> pTeX の和文トークンを CJKトークンとして扱い、
     中国語/韓国語対応を強化する。
 <5> pTeX の和文トークンの 16bit を単純に Unicode (UCS2等) 化すると
     欧文トークン (catcode 4bit + charcode 8bit) と衝突してしまう。
     これを回避する手法は何通りか考えられるが、
-    cjkトークンの上限の拡張を行い、
-    cjkトークンを (kcatcode 5bit+charcode 24bit) で扱う。
+    CJKトークンの上限の拡張を行い、
+    CJKトークンを (kcatcode 5bit+charcode 24bit) で扱う。
     pTeX からの改造量はやや大きいが、欧文 TeX との対称性は良くなる。
-<6> U+2xxxx (Supplimentary Ideograph Plane, SIP) の漢字も
-    サポートする。ただし、dviware の対応状況に差が出る可能性を考慮し
-    オプション扱いとする。
+<6> U+2xxxx (Supplimentary Ideograph Plane, SIP) の漢字など
+    BMP以上かつ全角幅の文字はサポートする。
+    BMP以上かつ全角幅以外の文字は、jfmの拡張によりサポートする方針だが、
+    dviware の対応状況に差が出る可能性を考慮しオプション扱いとする。
 <7> 日本ローカル色を薄めるだけの目的での機能変更、整理、削除は行わない。
     \xkanjiskip, \euc などはそのままの名称、機能で維持する。
     理由は、少々の手当で日本ローカル色が払拭できるはずもなく、
@@ -109,7 +110,7 @@ OpenType の新技術などを駆使できているわけでもない。
 世界の最新の TeX 環境や
 他の Unicode 拡張 (Omega/Aleph, XeTeX, LuaTeX 等)と比較すると、
 旧くさく中途半端な印象を受けるかもしれない。
-しかし、pTeX との互換性がほぼ 100% の Unicode 版 cjk TeX となり
+しかし、pTeX との互換性がほぼ 100% の Unicode 版 CJK TeX となり
 pTeX を中心に推移してきた日本の TeX ユーザーが
 過去の資産を利用しつつ手早く Unicode のおいしい部分を享受するために、
 的確な solution になっていると思う。
@@ -124,7 +125,7 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
     unicode版pTeXという主旨で。
     出来ることは欧文TeX + pTeXの和文拡張部分のUnicode版なので、
     uTeX とか universal TeX はおこがましい。
-<1> cjkトークンの内部コードとしてUnicodeを使用する。
+<1> CJKトークンの内部コードとしてUnicodeを使用する。
     入出力バッファのエンコーディングはUTF-8。
     内部エンコーディングはほぼUTF-32(註1)。
 <2> 入力ファイル(.texなど)はUTF-8とISO-2022-JPの自動判定。
@@ -132,8 +133,10 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 <3> tfm(jfm)のエンコーディングはUCS-2。
     エンコーディング名は JY2, JT2 とする。
     U+FFFFを越える文字は、U+2xxxx(SIP)の漢字を想定し、
-    chartype が defaultの 0 の漢字として組版する。
-    jfmのフォーマットは当面拡張せずpTeXのままとする。
+    jfmのフォーマットが従来のpTeXのものを用い
+    chartype が defaultの 0 の全角文字として組版する。
+    jfmのフォーマットは文字コード24bitを扱えるように拡張するが、
+    dviwareの拡張jfmへの対応が進むまで当面オプションとする。
 <4> dvi, vfにはUnicodeスカラー値を2〜3バイトで記録する(註2)。
     U+FFFF以下の文字はset2で、U+FFFFを越える文字はset3で扱う。
     和文として扱える文字コードの最大値はUnicodeの最大値U+10FFFF。
@@ -157,9 +160,9 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
    間接的に行う方法を行っている。この方法を
    ファイルなどからの読み込み時と内部処理時の両方で行っている。
    upTeXでは、ファイルなどからの読み込み時は同様であるが、
-   内部処理時には、<9>でcjkトークン毎に振ったkcatcodeを読み込むように
+   内部処理時には、<9>でCJKトークン毎に振ったkcatcodeを読み込むように
    変更した。たとえ同じ文字コードでもkcatcodeの途中変更を行えば、
-   cjkトークン毎に異なるkcatcodeを割り当てることが出来るようになる。
+   CJKトークン毎に異なるkcatcodeを割り当てることが出来るようになる。
 <11> 新しく \ucs プリミティヴを新設。
     \char\ucs"301C, \kchar\ucs"301C はU+301C(波ダッシュ)になる。
 <12> uptex, uplatex などでは -kanji=uptex と指定して
@@ -175,13 +178,13 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
    \char`<文字>, \chardef では文字コードが255以下の場合には欧文動作、
    265以上の場合には和文動作となる。
    \kchar`<文字>, \kchardef では文字コード範囲によらず和文動作となる。
-<15> デフォルトのフォントはset2の範囲で済むようにし、
-   set3を含むフォント(vf)は、オプションとする。
-   dviwareのset3対応の普及が進むのを待つため。
-   将来的にはset3対応を標準としたい。
+<15> 従来デフォルトのフォントはset2の範囲で済むようにし、
+   set3を含むフォント(vf)はオプションとしていたが、
+   dviwareのset3対応の普及が進んでおり
+   2018年2月よりset3を含むフォント(vf)を標準とした。
 <16> ISO-2022-JP{-3,-2004}, EUC-JISX0213, Shift_JISX0213などの
-   JIS X 0213系エンコーディングも将来使用可能にしたいが、
-   当面開発凍結する。
+   JIS X 0213系エンコーディングも使用可能にする案もあったが
+   開発凍結する。
 
 (註1) 32bitではなく24bitで扱っている点で厳密にはUTF-32ではない。
       あるいは、正規のUnicodeスカラー値(≒コードポイント)を
@@ -273,13 +276,16 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
 [g] 和文／欧文はコードレンジで簡明に区別できる。
 [h] 和文の場合はkcatcode付きで管理されるので、欧文と区別できる。
 [i] 欧文のみ可能。和文は不可。
-[j] defaultは和文。kcatcodeの切り替えにより欧文化が可能。
-[k] defaultは和文。kcatcodeの切り替えにより欧文の8bit多byte扱いが可能。
+[j] defaultは和文(**)。kcatcodeの切り替えにより和文欧文化が可能。
+[k] defaultは和文(**)。kcatcodeの切り替えにより欧文の8bit多byte扱いが可能。
 [l] 欧文のみ可能。和文は不可。
 [m] 欧文のみ可能。和文は不可。一部(例えば\char\jis"215F(×)など)がpTeX
  と非互換になる。
 [n] 和文のみ可能。欧文は不可。pTeXとの互換性のため用意。
 [o] 和文のみ可能。欧文は不可。
+(**) "Latin-1 Letters" (0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF),
+ "Latin Extended-A" (0x100..0x17F) の文字はupTeX-1.23より
+ defaultを欧文(not_cjk)とする設定を行った。
 
 
 ◇ pTeX との対照表
@@ -340,24 +346,24 @@ gbm.tfm    → ugbm.tfm
 gbmv.tfm   → ugbmv.tfm
 
 ◎ upjisr-{hv}.tfm系のフォント(デフォルト、新規)
--------     → upjisr-h.tfm   (UniJIS-UTF16-Hを想定)
--------     → upjisg-h.tfm   (UniJIS-UTF16-Hを想定)
--------     → upjisr-v.tfm   (UniJIS-UTF16-Vを想定)
--------     → upjisg-v.tfm   (UniJIS-UTF16-Vを想定)
+-------     → upjisr-h.tfm   (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定)
+-------     → upjisg-h.tfm   (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定)
+-------     → upjisr-v.tfm   (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定)
+-------     → upjisg-v.tfm   (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定)
 -------     → upjisr-hq.tfm  (UniJIS-UCS2-Hを想定)
 -------     → upjisg-hq.tfm  (UniJIS-UCS2-Hを想定)
 
--------     → upjisr-h.vf    (UniJIS-UTF16-Hを想定)
--------     → upjisg-h.vf    (UniJIS-UTF16-Hを想定)
--------     → upjisr-v.vf    (UniJIS-UTF16-Vを想定)
--------     → upjisg-v.vf    (UniJIS-UTF16-Vを想定)
+-------     → upjisr-h.vf    (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定, set3使用)
+-------     → upjisg-h.vf    (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定, set3使用)
+-------     → upjisr-v.vf    (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定, set3使用)
+-------     → upjisg-v.vf    (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定, set3使用)
 -------     → upjisr-hq.vf   (UniJIS-UCS2-Hを想定)
 -------     → upjisg-hq.vf   (UniJIS-UCS2-Hを想定)
 
--------     → uprml-h.tfm    (UniJIS-UTF16-Hを想定)
--------     → upgbm-h.tfm    (UniJIS-UTF16-Hを想定)
--------     → uprml-v.tfm    (UniJIS-UTF16-Vを想定)
--------     → upgbm-v.tfm    (UniJIS-UTF16-Vを想定)
+-------     → uprml-h.tfm    (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定)
+-------     → upgbm-h.tfm    (UniJIS-UTF16-HまたはUniJISup-UTF16-Hを想定)
+-------     → uprml-v.tfm    (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定)
+-------     → upgbm-v.tfm    (UniJIS-UTF16-VまたはUniJISup-UTF16-Vを想定)
 -------     → uprml-hq.tfm   (UniJIS-UCS2-Hを想定)
 -------     → upgbm-hq.tfm   (UniJIS-UCS2-Hを想定)
 
@@ -412,31 +418,112 @@ Japanese             Ryumin-Light        GothicBBB-Medium
 Korean               HYSMyeongJo-Medium  HYGoThic-Medium
 
 
+◇ kcatcode のデフォルト値
+kcatcodeの意味は、15: not_cjk, 16: kanji, 17: kana, 18: other_kchar, 19: hangul
+kcatcodeが15(not_cjk)の場合は欧文扱いになる。
+kcatcodeは原則としてUnicodeのblock毎に与えられる。
+(Ref. http://www.unicode.org/Public/UNIDATA/Blocks.txt)
+ただし、例外の文字集合が3個ある。
+文字コード値0x0080以上のブロックでは原則18(other_kchar)が設定されている。
+下記の表にはそれ以外の値のものを記載した。左端はブロックの通し番号。
+○Unicode blockに準拠
+ (0x00)  0x0000.. 0x007F  <15>  Basic Latin
+ (0x02)  0x0100.. 0x017F  <15>  Latin Extended-A
+ (0x24)  0x1100.. 0x11FF  <19>  Hangul Jamo
+ (0x66)  0x2E80.. 0x2EFF  <16>  CJK Radicals Supplement
+ (0x67)  0x2F00.. 0x2FEF  <16>  Kangxi Radicals
+ (0x68)  0x2FF0.. 0x2FFF  <16>  Ideographic Description Characters
+ (0x6A)  0x3040.. 0x309F  <17>  Hiragana
+ (0x6B)  0x30A0.. 0x30FF  <17>  Katakana
+ (0x6C)  0x3100.. 0x312F  <16>  Bopomofo
+ (0x6D)  0x3130.. 0x318F  <19>  Hangul Compatibility Jamo
+ (0x6E)  0x3190.. 0x319F  <16>  Kanbun
+ (0x6F)  0x31A0.. 0x31BF  <16>  Bopomofo Extended
+ (0x70)  0x31C0.. 0x31EF  <16>  CJK Strokes
+ (0x71)  0x31F0.. 0x31FF  <17>  Katakana Phonetic Extensions
+ (0x74)  0x3400.. 0x4DBF  <16>  CJK Unified Ideographs Extension A
+ (0x76)  0x4E00.. 0x9FFF  <16>  CJK Unified Ideographs
+ (0x86)  0xA960.. 0xA97F  <19>  Hangul Jamo Extended-A
+ (0x91)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
+ (0x92)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
+ (0x97)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
+ (0xF1)  0x1B000..0x1B0FF <17>  Kana Supplement
+ (0xF2)  0x1B100..0x1B16F <17>  Kana Extended-A
+ (0x10E) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x10F) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x110) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x111) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x112) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x113) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+(上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
+○Unicode blockの例外
+ (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
+ (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
+ (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
+
+
+◇ ukinsoku.tex に関する注意事項
+ukinsoku.tex で行なった禁則ペナルティに関する設定において、
+UnicodeとCJK(JIS X 0213等)の文字を想定して設定されたものの中に
+文字コードが 0x80..0xFF のものを含んでいる。
+それらの設定は仕様上、8bit欧文の文字にも同時に作用してしまう。
+8bit欧文がT1の場合について下記にまとめた。
+この動作が不都合な場合は、ユーザー各位の利用状況に応じて適宜
+設定を変更するようお願いする。
+
+文字コード  Unicode      T1
+ 0xA1      U+00A1 (¡)   ą {\k a}
+ 0xAA      U+00AA (ª)   ł {\l}
+ 0xAB      U+00AB («)   ń {\@tabacckludge'n}
+ 0xB2      U+00B2 (²)   š {\v s}
+ 0xB3      U+00B3 (³)   ş {\c s}
+ 0xB7      U+00B7 (·)   ů {\r u}
+ 0xB9      U+00B9 (¹)   ź {\@tabacckludge'z}
+ 0xBA      U+00BA (º)   ž {\v z}
+ 0xBB      U+00BB (»)   ż {\.z}
+ 0xBF      U+00BF (¿)   £ {\textsterling}
+
+
 ◇ 動作状況
 ◎ uptex-1.xxの配布に含めたもの
 uptex     動いている。無問題。
-uplatex   動いている。無問題。
 uppltotf  動いている。無問題。
 uptftopl  動いている。無問題。
-updvitype  set3も含めて動いている。無問題。
+updvitype 動いている。無問題。
 upbibtex  ほぼ動いている。しかし、jalpha.bst 使用時に
   一部のエントリーでeuc動作と同等にならない問題がある。
-makejvf   簡単な対応を施した。
-  オプション -u, -3, -J, -U, -H, -i を新設した。
-upjisr-h.tfmなど
-  JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。
-  JIS X 0213の追加の約物は一応入れた。
-  その他 JIS X 0208/0213 以外の約物はAJ1-6でめぼしいものはないようだ。
-  半角カナにも対応済。
 ukinsoku.tex  JIS X 0213 に対応した。
 convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
   さらに、out2uni相当動作の-oオプションも追加した。
 CMap UTF8-UTF16
   TeX Live svn に r26540 で取り込まれた。
-◎ TeX Live に取り込んでいただいたもの
+◎ 別の配布に含めたもの
+otfパッケージ  otfbeta-uptex-x.xx.tar.xz として別に公開し、
+  japanese-otf-uptex としてCTANに登録した。
+  TeX Live svn に r25264 あたりで取り込まれた。
+  プロポーショナル仮名にも対応済み。
+◎ 日本語TeX開発コミュニティに移管したもの
+upjisr-h.tfmなど
+  JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。
+  JIS X 0213の追加の約物は一応入れた。
+  その他 JIS X 0208/0213 以外の約物はAJ1-6でめぼしいものはないようだ。
+  半角カナにも対応済。
+  upjisr-h.vfなどにBMP外の文字も一部追加した。
+  以降、開発元は下記に移管。
+    https://github.com/texjporg/uptex-fonts
+uplatex   動いている。無問題。
+  以降、開発元は下記に移管。
+    https://github.com/texjporg/uplatex
+makejvf   簡単な対応を施した。
+  オプション -u, -3, -J, -U, -H, -i を新設した。
+  以降、開発元は下記に移管。
+    https://github.com/texjporg/tex-jp-build
 ptexenc  TeX Live svn に r23549〜r25028 あたりで取り込まれた。
   JIS→Unicode の変換表は r29213 で見直した。
   かなの合成文字は r38704 で取り込まれた。
+  以降、開発元は下記に移管。
+    https://github.com/texjporg/tex-jp-build
+◎ TeX Live に取り込んでいただいたもの
 euptex    TeX Live の Build/source/web2c で本配布の uptexdir の置き換えでOK
   euptexdir 以下は新しい uptex との組合わせ可能で euptex が作成出来る。
 dvips     TeX Live 2010 に取り込まれた。
@@ -451,20 +538,16 @@ dvi2tty   TeX Live svn に r24634 あたりで取り込まれた。
   オプション -J を変更し、 -U, -E を新設した。
   さらに、T1,TS1,OT2,T2A,T2B,T2C,X2エンコーディング対応機能が
   TeX Live に r39942 あたりで取り込まれた。
-mendex    TeX Live r33962 あたりで、表記をUnicode対応とした。
+mendex    TeX Live r33962 あたりで、見出しをUnicode対応とした。
 upmendex  mendex をベースに新規に作成した。
   mendex の内部コードをUnicode化し、ICUによるソート、
   読みをJIS X 0213のかなに対応、CJK対応、ラテン文字(含非英語)対応、
   キリル文字対応、ギリシャ文字対応となっている。
   TeX Live svn に r39638 あたりで取り込まれた。
-upmpost   TeX Live r35188 あたりでupmetapostの名前で取り込まれた。
+upmpost   TeX Live r35188 あたりでupmetapostの名前で取り込まれ、
+  現在upmpostの名前になっている。
   ただし、おそらくuptex-0.30の頃と同様、
   日本語vfの領域を食い過ぎで多書体ができないと思われる。
-otfパッケージ  otfbeta-uptex-x.xx.tar.xz として別に公開した。
-  TeX Live svn に r25264 あたりで取り込まれた。
-  プロポーショナル仮名にも対応済み。
-  本文用 vf 作成のために mkjvf を Unicode 対応にして、
-  vf を追加作成した。
 Unicodeのファイル名  Unix/LinuxではlocaleがUTF-8ならば使用出来る。
   Windowsでは、TeX Live 2014 に取り込まれた。
 ◎ 現在の配布に含んでいないもの
@@ -485,15 +568,12 @@ utfパッケージ  uptex-0.30では動いている。
 ◇ 今後の課題、要検討事項など
 < 内部実装関連 >
 [1] pdfTeX 拡張機能の追加は?
+[2] Unicodeで複数のコードポイントを必要とする文字(IVS,
+  文字合成で表される仮名等)を使えるようにする。
 < dviware, 外部ソフト関連 >
-[2] upmetapost で多書体が使えるようにする。
-[3] upbibtex で、jalpha.bst 使用時に
+[3] upmpost で多書体が使えるようにする。
+[4] upbibtex で、jalpha.bst 使用時に
   一部のエントリーでeuc動作と同等にならない問題点の解決。
-< フォント、マクロ関連 >
-[4] JIS→Unicode→CID の変換をupjis?-?.vfなど
-  に対してうまくいく形にする。
-  JIS X 0208集合の横組はよくなったが、縦組の約物はまだ上手くいかない。
-  vf と標準の CMap だけでは限界があり、 CMapの整備が必要。
 < その他 >
 [5] ドキュメントの充実。
 [6] 英語ドキュメントを書く。

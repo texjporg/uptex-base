@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- unicode version of ASCII pTeX, pLaTeX
-2017.01.15 Ver1.22
+2018.02.24 Ver1.23
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 [ Contents ]
@@ -7,12 +7,12 @@ TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 01uptex_doc_utf8.txt :: A document (in Japanese)
 02uptex_changelog_utf8.txt :: Change Log
 under Build/ ::  sources of binaries
-under Master/ :: macros, classes, fonts. etc.
+under Master/ :: ini file etc.
 under bin/ :: utility
 under samples/ :: samples for test
 
 [ Building upTeX ]
-The sources work with TeXLive svn r42954 .
+The sources work with TeXLive svn r466XX .
 Ref. TeXLive and Subversion  http://www.tug.org/texlive/svn/
 
 [ Status ]
@@ -22,7 +22,7 @@ No warranty.
 [ References ]
 [1] ASCII Nihongo TeX (Publishing TeX)
     ASCII MEDIA WORKS
-    http://ascii.asciimw.jp/pb/ptex/
+    http://ascii.asciimw.jp/pb/ptex/ (dead link)
 [2] upTeX, upLaTeX ― unicode version of pTeX, pLaTeX
     http://www.t-lab.opal.ne.jp/tex/uptex_en.html
 
