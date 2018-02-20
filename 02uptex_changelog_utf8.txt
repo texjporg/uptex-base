@@ -10,6 +10,12 @@
       "Blocks-10.0.0.txt Date: 2017-04-12, 17:30:00 GMT [KW]".
       Exclude Latin-1 letters from "Latin-1 Supplement" block.
       Set kcatcode of "Latin-1 letters", "Latin Extended-A" 15 (not_cjk).
+    * uppltotf.ch, uptftopl.ch: (from TeX Live)
+      Adapt to extend format of JFM to accept 24bit characters for chartype>0.
+      (Thanks to Yamashita san)
+    * uptex-m.ch: (from TeX Live)
+      New primitives: \uptexversion and \uptexrevision.
+      (Thanks to Kitagawa san)
     * COPYRIGHT, COPYRIGHT.ja:
       Update copyright year.
   Build/source/texk/makejvf:
