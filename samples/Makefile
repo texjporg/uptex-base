@@ -208,6 +208,13 @@ dvi2ttyu: encswitchu
 		perl check_enc.pl $$fe simple-u-jis-uptex-$$fe-u.dvi2tty || exit ; \
 		diff simple-u-jis-uptex-$$fe-j.dvi2tty simple-u-jis-uptex-$$fe-u.dvi2tty || exit ; \
 	done
+	for fe in u; do \
+		$(DVI2TTYJ) -w 62 -o simple-u-utf8-uptex-$$fe-j.dvi2tty -E $$fe simple-u-utf8-uptex.dvi ; \
+		perl check_enc.pl $$fe simple-u-utf8-uptex-$$fe-j.dvi2tty || exit ; \
+		$(DVI2TTYU) -w 62 -o simple-u-utf8-uptex-$$fe-u.dvi2tty -E $$fe simple-u-utf8-uptex.dvi ; \
+		perl check_enc.pl $$fe simple-u-utf8-uptex-$$fe-u.dvi2tty || exit ; \
+		diff simple-u-utf8-uptex-$$fe-j.dvi2tty simple-u-utf8-uptex-$$fe-u.dvi2tty || exit ; \
+	done
 
 jbib: jbibp jbibu
 
