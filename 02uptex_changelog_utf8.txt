@@ -1,6 +1,7 @@
 ### ChangeLog / 変更履歴
 
 2018.02.24 Ver1.23-20180224a
+  TeXLive svn r46726 base
   Build/source/texk/web2c/uptexdir:
     * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
       uptex_version.h:
