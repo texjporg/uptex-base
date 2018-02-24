@@ -14,6 +14,17 @@
 \usepackage[OT2,T2A,T2B,T2C,T1]{fontenc}
 \usepackage[french,german,czech,russian,japanese]{babel}
 
+%%% Setting of kcatcode %%%
+%%% kcatcode  15: not cjk, 16: kanji, 17: kana, 18: other cjk char
+\kcatcode"A7=15% U+00A7:§  (Latin-1 Supplement, Common)
+%\kcatcode"C0=15% U+00C0:À  (Latin-1 Supplement, Latin-1 letters)
+%\kcatcode"100=15% U+0100:Ā  (Latin Extended-A)
+\kcatcode`П=15% U+041F:П (Cyrillic)
+\kcatcode`“=15% U+201C:“ (General Punctuation)
+%
+% pxcjkcat package  https://ctan.org/pkg/pxcjkcat
+%\usepackage[prefernoncjk]{pxcjkcat}
+
 \DeclareFontFamily{JY2}{jpnrm}{}
 \DeclareFontFamily{JY2}{schrm}{}
 \DeclareFontFamily{JY2}{tchrm}{}
@@ -32,10 +43,6 @@
 \DeclareRobustCommand\korrm{\kanjifamily{korrm}\selectfont}
 
 \begin{document}
-\kcatcode`ç=15% not cjk character
-\kcatcode`Ŕ=15
-\kcatcode`П=15
-\kcatcode`“=15
 
 \selectlanguage{french}
 \section{フランス語 Français}
@@ -106,6 +113,29 @@ in fluffy souffl\'es?''
 often naïve vis-à-vis the dæmonic phœnix’s official rôle
 in fluffy soufflés?”
 
+\noindent
+\kcatcode"2423=15% U+2423: ␣ (Control Pictures)
+T1 with UTF-8 direct input:\\
+\begin{center}\begin{tabular}{r|l|l|}
+00:&(`)()()()()()()()&()()()(¸)()(‚)(‹)(›)\\
+10:&(“)(”)(„)(«)(»)(–)(—)()&()(ı)()()()()()()\\
+20:&(␣)(!)(")()()()()(’)&()()(*)(+)(,)()(.)(/)\\
+30:&(0)(1)(2)(3)(4)(5)(6)(7)&(8)(9)(:)(;)()(=)()(?)\\
+40:&(@)(A)(B)(C)(D)(E)(F)(G)&(H)(I)(J)(K)(L)(M)(N)(O)\\
+50:&(P)(Q)(R)(S)(T)(U)(V)(W)&(X)(Y)(Z)([)()(])()()\\
+60:&(‘)(a)(b)(c)(d)(e)(f)(g)&(h)(i)(j)(k)(l)(m)(n)(o)\\
+70:&(p)(q)(r)(s)(t)(u)(v)(w)&(x)(y)(z)()(|)()()(‐)\\
+80:&(Ă)(Ą)(Ć)(Č)(Ď)(Ě)(Ę)(Ğ)&(Ĺ)(Ľ)(Ł)(Ń)(Ň)(Ŋ)(Ő)(Ŕ)\\
+90:&(Ř)(Ś)(Š)(Ş)(Ť)(Ţ)(Ű)(Ů)&(Ÿ)(Ź)(Ž)(Ż)(Ĳ)(İ)(đ)(§)\\
+A0:&(ă)(ą)(ć)(č)(ď)(ě)(ę)(ğ)&(ĺ)(ľ)(ł)(ń)(ň)(ŋ)(ő)(ŕ)\\
+B0:&(ř)(ś)(š)(ş)(ť)(ţ)(ű)(ů)&(ÿ)(ź)(ž)(ż)(ĳ)(¡)(¿)(£)\\
+C0:&(À)(Á)(Â)(Ã)(Ä)(Å)(Æ)(Ç)&(È)(É)(Ê)(Ë)(Ì)(Í)(Î)(Ï)\\
+D0:&(Ð)(Ñ)(Ò)(Ó)(Ô)(Õ)(Ö)(Œ)&(Ø)(Ù)(Ú)(Û)(Ü)(Ý)(Þ)()\\
+E0:&(à)(á)(â)(ã)(ä)(å)(æ)(ç)&(è)(é)(ê)(ë)(ì)(í)(î)(ï)\\
+F0:&(ð)(ñ)(ò)(ó)(ô)(õ)(ö)(œ)&(ø)(ù)(ú)(û)(ü)(ý)(þ)(ß)\\
+\end{tabular}\end{center}
+
+
 \selectlanguage{russian}
 \section{ロシア語 \fontencoding{T2A}\selectfont{}Русский}
 \fontencoding{T2A}\selectfont
@@ -165,7 +195,7 @@ T2A:\\
 可参考「如何阅读本问答集及了解其编排结构」该项中的说明。
 
 \def\today{%
- \number\year ﻿年
+ \number\year 年
  \number\month 月
  \number\day 日
 }
@@ -183,7 +213,7 @@ T2A:\\
 可參考「如何閱讀本問答集及了解其編排結構」該項中的說明。
 
 \def\today{%
- \number\year ﻿年
+ \number\year 年
  \number\month 月
  \number\day 日
 }
@@ -200,17 +230,17 @@ T2A:\\
 % Ref. http://project.ktug.or.kr/omega-cjk/tug2004-preprint.pdf
 이 FAQ은 자주 반복되는
 질문과 그에 대한 대답을
-간단명료한
-양식으로%
+간단명료한 양식으로
 모아 엮어졌습니다. 
 이 FAQ의 구조는 지난 판에 비하여
-획기적으로변경되었습니다.
+획기적으로 변경% (A space is NOT inserted here.)
+되었습니다.
 상세한 것은 ``이 FAQ을 어떻게 읽을
 것인가'' 라는 대목을 참조하시기 바랍니다.
 
 
 \def\today{%
- \number\year ﻿연%
+ \number\year 년%
  \number\month 월%
  \number\day 일%
 }

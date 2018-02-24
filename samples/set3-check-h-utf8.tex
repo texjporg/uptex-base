@@ -18,7 +18,7 @@
 %% for hyperref + dvipdfmx
 \usepackage[dvipdfm,bookmarks=true,bookmarksnumbered=true,%
 bookmarkstype=toc]{hyperref}
-\AtBeginDvi{\special{pdf:tounicode UTF8-UCS2}}
+\AtBeginDvi{\special{pdf:tounicode UTF8-UTF16}}
 %%
 
 \fi
@@ -39,18 +39,18 @@ bookmarkstype=toc]{hyperref}
 \textwidth162mm
 \textheight245mm
 
-\DeclareFontFamily{JY2}{mcw}{}
-\DeclareFontFamily{JY2}{gtw}{}
-\DeclareFontShape{JY2}{mcw}{m}{n}{<->s*[0.962216]upjpnrm-h}{}
-\DeclareFontShape{JY2}{gtw}{m}{n}{<->s*[0.962216]upjpngt-h}{}
-\DeclareFontShape{JY2}{gt}{m}{n}{<->s*[0.962216]upjpngt-h}{}
-\DeclareFontShape{JY2}{mcw}{bx}{n}{<->ssub*gt/m/n}{}
-\DeclareFontShape{JY2}{gtw}{bx}{n}{<->ssub*gt/m/n}{}
-\DeclareFontShape{JY2}{gt}{bx}{n}{<->ssub*gt/m/n}{}
-\DeclareRobustCommand\mcw{\kanjifamily{mcw}\selectfont}
-\DeclareRobustCommand\gtw{\kanjifamily{gtw}\selectfont}
-\renewcommand\mcdefault{mcw}
-\renewcommand\gtdefault{gtw}
+%\DeclareFontFamily{JY2}{mcw}{}
+%\DeclareFontFamily{JY2}{gtw}{}
+%\DeclareFontShape{JY2}{mcw}{m}{n}{<->s*[0.962216]upjpnrm-h}{}
+%\DeclareFontShape{JY2}{gtw}{m}{n}{<->s*[0.962216]upjpngt-h}{}
+%\DeclareFontShape{JY2}{gt}{m}{n}{<->s*[0.962216]upjpngt-h}{}
+%\DeclareFontShape{JY2}{mcw}{bx}{n}{<->ssub*gt/m/n}{}
+%\DeclareFontShape{JY2}{gtw}{bx}{n}{<->ssub*gt/m/n}{}
+%\DeclareFontShape{JY2}{gt}{bx}{n}{<->ssub*gt/m/n}{}
+%\DeclareRobustCommand\mcw{\kanjifamily{mcw}\selectfont}
+%\DeclareRobustCommand\gtw{\kanjifamily{gtw}\selectfont}
+%\renewcommand\mcdefault{mcw}
+%\renewcommand\gtdefault{gtw}
 
 \begin{document}
 
@@ -75,10 +75,11 @@ JIS X 0208, JIS X 0213では、別のコードポイントの文字に包摂さ�
 
 \section{いわゆる『新JIS』『JIS2004』}
 \subsection{JIS X 0213:2004追加漢字 (10字)}
+\noindent
 俱剝𠮟吞噓姸屛幷瘦繫
 
 \subsection{Extension B (BMP外)の文字(303字): 𠀋𠆢𠘨𡈽𠮟など}
-
+\noindent
 𠂉𠀋𠂢𠂤𠆢𠈓𠌫𠎁𠍱𠏹𠑊𠔉𠗖𠘨𠝏𠠇𠠺𠢹𠥼𠦝
 𠫓𠬝𠵅𠷡𠺕𠹭𠹤𠽟𡈁𡈽𡉕𡉻𡉴𡋤𡋗𡌛𡋽𡌶𡍄𡏄
 𡑮𡑭𡗗𦰩𡙇𡜆𡝂𡢽𡧃𡱖𡴭𡚴𡵅𡵸𡵢𡶡𡶜𡶒𡶷𡷠
@@ -155,14 +156,10 @@ abcABC \¥￥
 \土の𠮷true\test土の𠮷\quad\土の𠮷false\test土の𠮷
 
 
-% 以下の例は、uptex-0.04 までは改行位置が壊れ破綻していた。 kcode_pos の対処が不完全だったため。大丈夫になったはず。
-
+% kcode_pos などのテスト。
 \typeout{𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷}
-
 \typeout{a𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷}
-
 \typeout{ab𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷}
-
 \typeout{abc𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷𠮷}
 
 \end{document}

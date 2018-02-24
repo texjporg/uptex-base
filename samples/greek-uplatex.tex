@@ -8,20 +8,22 @@
 % and is modified for upLaTeX
 %
 \documentclass[a4j]{ujarticle}
-
-\kcatcode`ç=15% not cjk character
-%\kcatcode`Ŕ=15
-%\kcatcode`П=15
-%\kcatcode`“=15
-\kcatcode`α=15
-\kcatcode`ἀ=15
-\kcatcode`’=15
-
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
 \usepackage[10pt]{type1ec}
 \usepackage[T1]{fontenc}
 \usepackage[polutonikogreek]{babel}
+
+%%% Setting of kcatcode %%%
+%%% kcatcode  15: not cjk, 16: kanji, 17: kana, 18: other cjk char
+%\kcatcode"E7=15% U+00E7:ç  (Latin-1 Supplement, Latin-1 letters)
+\kcatcode`α=15% U+03B1:α (Greek)
+\kcatcode`ἀ=15% U+1F00: ἀ (Greek Extended)
+\kcatcode`’=15% U+2019: ’ (General Punctuation)
+%
+% pxcjkcat package  https://ctan.org/pkg/pxcjkcat
+%\usepackage[prefernoncjk]{pxcjkcat}
+
 \begin{document}
 
 \selectlanguage{polutonikogreek}

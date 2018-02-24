@@ -18,7 +18,7 @@
 %% for hyperref + dvipdfmx
 \usepackage[dvipdfm,bookmarks=true,bookmarksnumbered=true,%
 bookmarkstype=toc]{hyperref}
-\AtBeginDvi{\special{pdf:tounicode UTF8-UCS2}}
+\AtBeginDvi{\special{pdf:tounicode UTF8-UTF16}}
 %%
 
 \fi
@@ -116,8 +116,8 @@ upjisr-h.tfm &
 
 \end{tabular}
 
-\section{括弧類}
-\subsection{JIS X 0208にあるもの}
+\section{約物}
+\subsection{JIS X 0208にある括弧類}
 ‘回’ “回” （回） 〔回〕 ［回］ ｛回｝ 〈回〉 《回》 「回」 『回』 【回】
 
 {\gt
@@ -126,14 +126,33 @@ upjisr-h.tfm &
 
 %‘回’ “回” は、upTeX-0.13 で改善した。
 
-\subsection{JIS X 0213で追加されたもの}
+\subsection{JIS X 0213で追加された括弧類}
 ｟回｠ 〘回〙 〖回〗 〝回〟
 
 {\gt
 ｟回｠ 〘回〙 〖回〗 〝回〟
 }
 
-{\gt 〖回〗} は、KozGoProVI-Medium.otfならうまくいくはず。
+% {\gt 〖回〗} は、KozGoProVI-Medium.otfならうまくいくはず。
+
+\subsection{縦組みでの動作が気になるもの}
+回回：回回；回回、回回。回回，回回．
+
+㍾㍽㍼㍻ ㍉㌔㌢㍍㌘㌧㌃㌶㍑㍗㌍㌦㌣㌫㍊㌻
+
+→←↑↓ ☞☜☝☟ ⇨⇦⇧⇩ ➡⬅⬆⬇⮕
+
+①＝① ②≒② ③≠③ ④≡④ ⑤―⑤ ⑥−⑥ ⑦‐⑦ ⑧゠⑧ ⑨‥⑨ ⑩…⑩ ⑪〜⑪ ⑫ー⑫
+
+{\gt
+回回：回回；回回、回回。回回，回回．
+
+㍾㍽㍼㍻ ㍉㌔㌢㍍㌘㌧㌃㌶㍑㍗㌍㌦㌣㌫㍊㌻
+
+→←↑↓ ☞☜☝☟ ⇨⇦⇧⇩ ➡⬅⬆⬇⮕
+
+①＝① ②≒② ③≠③ ④≡④ ⑤―⑤ ⑥−⑥ ⑦‐⑦ ⑧゠⑧ ⑨‥⑨ ⑩…⑩ ⑪〜⑪ ⑫ー⑫
+}
 
 \section{いわゆる『JIS外字』←不正確な言い方だが}
 JIS X 0208, JIS X 0213では、別のコードポイントの文字に包摂されている
@@ -177,6 +196,7 @@ B: 啞焰鷗嚙俠軀鹼麴屢繡蔣醬蟬搔驒簞摑塡顚禱瀆囊潑醱頰�
 }
 
 \subsection{JIS X 0213:2004追加漢字 (10字)}
+\noindent
 俱剝%𠮟
 吞噓姸屛幷瘦繫 (1字はextension B (BMP外))
 
