@@ -493,8 +493,6 @@ updvitype 動いている。無問題。
 upbibtex  ほぼ動いている。しかし、jalpha.bst 使用時に
   一部のエントリーでeuc動作と同等にならない問題がある。
 ukinsoku.tex  JIS X 0213 に対応した。
-convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
-  さらに、out2uni相当動作の-oオプションも追加した。
 CMap UTF8-UTF16
   TeX Live svn に r26540 で取り込まれた。
 ◎ 別の配布に含めたもの
@@ -502,6 +500,11 @@ otfパッケージ  otfbeta-uptex-x.xx.tar.xz として別に公開し、
   japanese-otf-uptex としてCTANに登録した。
   TeX Live svn に r25264 あたりで取り込まれた。
   プロポーショナル仮名にも対応済み。
+  https://ctan.org/pkg/japanese-otf-uptex
+convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
+  さらに、out2uni相当動作の-oオプションも追加した。
+  convbkmk としてCTANに登録した。
+  https://ctan.org/pkg/convbkmk
 ◎ 日本語TeX開発コミュニティに移管したもの
 upjisr-h.tfmなど
   JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。

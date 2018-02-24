@@ -12,7 +12,7 @@ under bin/ :: utility
 under samples/ :: samples for test
 
 [ Building upTeX ]
-The sources work with TeXLive svn r46726 .
+The sources work with TeXLive svn r46727 .
 Ref. TeXLive and Subversion  http://www.tug.org/texlive/svn/
 
 [ Status ]

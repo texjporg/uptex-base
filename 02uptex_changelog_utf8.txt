@@ -1,7 +1,7 @@
 ### ChangeLog / 変更履歴
 
 2018.02.24 Ver1.23-20180224a
-  TeXLive svn r46726 base
+  TeXLive svn r46727 base
   Build/source/texk/web2c/uptexdir:
     * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
       uptex_version.h:
@@ -25,7 +25,10 @@
   Master/texmf-dist/{,source/}fonts/*:
     * Removed. Now it is distributed at
       https://github.com/texjporg/uptex-fonts
-      http://www.ctan.org/pkg/uptex-fonts
+      https://www.ctan.org/pkg/uptex-fonts
+  bin/convbkmk.rb:
+    * Removed. Now it is distributed at
+      https://ctan.org/pkg/convbkmk
   samples:
     Update.
   01uptex_doc_utf8.txt:
