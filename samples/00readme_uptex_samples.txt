@@ -32,6 +32,9 @@ adobe-jp-utf8.tex, adobe-kr-utf8.tex
 cjk_babel.tex, greek-uplatex.tex
   : test for CJK and babel
 
+punctuation.tex
+  : test for punctuations of CJK
+
 simple-euc.tex, simple-jis.tex, simple-sjis.tex,
 simple-u-jis.tex, simple-u-utf8.tex, simple-utf8.tex
   : test for encodings

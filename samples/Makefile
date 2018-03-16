@@ -20,7 +20,8 @@ CONVBKMKO = convbkmk -g -o
 PS2PDF = ps2pdf
 
 all: uplatex-euc.fmt uplatex-sjis.fmt \
- misc kin widow uptex uplatex aozora adobe encswitch \
+ misc kin widow uptex uplatex aozora adobe \
+ babel greek punct encswitch \
  jscman tfpl otf jbib jisuni dvi2tty bkmk consio eplatex texxet
 
 ####
@@ -138,6 +139,11 @@ greek:
 	$(UPLATEX) greek-uplatex
 	$(DVIPDFMX) greek-uplatex
 	$(DVIPS) greek-uplatex
+
+punct:
+	$(UPLATEX) punctuation
+	$(DVIPDFMX) punctuation
+	$(DVIPS) punctuation
 
 encswitch: encswitchj encswitchp encswitchu
 
