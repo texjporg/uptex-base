@@ -259,9 +259,9 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
 0x100〜  —       —[d]    —    —
 0x8000〜 ■       ■[e]    —    ■[g]
 
-[upTeX(v.0.10〜)]
+[upTeX]
          token    text     ^^ab  \char   \kchar
-〜0x7F   ○■[h]  ○   [i]  ○    ○[l]   ■[o]
+〜0x7F   ○       ○   [i]  ○    ○[l]   ■[o]
 〜0xFF   ○■[h] (○)■[j]  ○    ○[m]   ■[o]
 0x100〜  ■      (△)■[k]  —    ■[n]   ■[o]
 
