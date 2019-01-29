@@ -1,5 +1,13 @@
+%% (Last update: 2019/01/29 ttk, texjporg)
 %%
-%% 行頭、行末禁則パラメータ (Last update: 2018/02/20 ttk, texjporg)
+\ifnum\ucs"3000="3000 \else
+    \errhelp{Please try to run (e)uptex with option
+             `-kanji-internal=uptex'.}%
+    \errmessage{This file should be read with
+                internal Kanji encoding Unicode}\@@end
+\fi
+%%
+%% 行頭、行末禁則パラメータ
 %%
 %% 1byte characters
 \prebreakpenalty`!=10000
