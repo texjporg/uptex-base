@@ -1,5 +1,31 @@
 ### ChangeLog / 変更履歴
 
+2019.02.23 Ver1.24-20190223a
+  TeXLive svn r50082 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-12.0.0.txt Date: 2018-07-30, 19:40:00 GMT [KW]".
+      Set kcatcode of "Latin Extended-B",
+      "Latin Extended Additional" 15 (not_cjk).
+    * upbibtex.ch:
+      Fix bug of substring$ from Takashi Sakai san
+      https://github.com/texjporg/tex-jp-build/issues/64
+      https://github.com/texjporg/tex-jp-build/pull/66
+    * COPYRIGHT, COPYRIGHT.ja:
+      Update copyright year.
+  Master/texmf-dist/tex/uptex/uptex-base:
+    * ukinsoku.tex:
+      Import from GitHub
+      https://github.com/texjporg/uptex-base
+  samples:
+    Update.
+  01uptex_doc_utf8.txt:
+    Update.
+
 2018.02.24 Ver1.23-20180224a
   TeXLive svn r46727 base
   Build/source/texk/web2c/uptexdir:

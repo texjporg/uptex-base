@@ -4,8 +4,14 @@
 %  Adobe-Japan1-5:
 %   $ uplatex adobe-cid.tex
 %   $ uplatex "\def\adobe{jp}\input" adobe-cid.tex
-%  Adobe-Japan1-6: (require the development version of the otf package)
+%  Adobe-Japan1-6:
 %   $ uplatex "\def\adobe{jp6}\input" adobe-cid.tex
+%  Adobe-Japan1-7: (require the development version of the otf package)
+%   $ uplatex "\def\adobe{jp7}\input" adobe-cid.tex
+%  Adobe-CNS1-7: (require the development version of the otf package)
+%   $ uplatex "\def\adobe{cns7}\input" adobe-cid.tex
+%  Adobe-CNS1-6: (require the development version of the otf package)
+%   $ uplatex "\def\adobe{cns6}\input" adobe-cid.tex
 %  Adobe-CNS1-5:
 %   $ uplatex "\def\adobe{cns}\input" adobe-cid.tex
 %  Adobe-GB1-5:
@@ -29,9 +35,12 @@
 
 \makeatletter
 \def\@adobecns{cns}
+\def\@adobecnssix{cns6}
+\def\@adobecnsseven{cns7}
 \def\@adobegb{gb}
 \def\@adobejapan{jp}
 \def\@adobejapansix{jp6}
+\def\@adobejapanseven{jp7}
 \def\@adobekorea{kr}
 \def\@gtfamily{gt}
 
@@ -40,11 +49,28 @@
 \newcommand{\CIDmax}{20316}
 %\newcommand{\Name}{Adobe-Japan1-6}
 %\newcommand{\CIDmax}{23057}
+%\newcommand{\Name}{Adobe-Japan1-7}
+%\newcommand{\CIDmax}{23059}
 
+\ifx\adobe\@adobejapanseven
+%  \renewcommand{\CIDx}{\CID}
+  \renewcommand{\Name}{Adobe-Japan1-7}
+  \renewcommand{\CIDmax}{23059}
+\fi
 \ifx\adobe\@adobejapansix
 %  \renewcommand{\CIDx}{\CID}
   \renewcommand{\Name}{Adobe-Japan1-6}
   \renewcommand{\CIDmax}{23057}
+\fi
+\ifx\adobe\@adobecnsseven
+  \renewcommand{\CIDx}{\CIDT}
+  \renewcommand{\Name}{Adobe-CNS1-7}
+  \renewcommand{\CIDmax}{19178}
+\fi
+\ifx\adobe\@adobecnssix
+  \renewcommand{\CIDx}{\CIDT}
+  \renewcommand{\Name}{Adobe-CNS1-6}
+  \renewcommand{\CIDmax}{19155}
 \fi
 \ifx\adobe\@adobecns
   \renewcommand{\CIDx}{\CIDT}
