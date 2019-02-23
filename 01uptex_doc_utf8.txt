@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2018.02.24 Ver1.23
+2019.02.23 Ver1.24
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -259,9 +259,9 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
 0x100〜  —       —[d]    —    —
 0x8000〜 ■       ■[e]    —    ■[g]
 
-[upTeX]
+[upTeX(v.0.10〜)]
          token    text     ^^ab  \char   \kchar
-〜0x7F   ○       ○   [i]  ○    ○[l]   ■[o]
+〜0x7F   ○■[h]  ○   [i]  ○    ○[l]   ■[o]
 〜0xFF   ○■[h] (○)■[j]  ○    ○[m]   ■[o]
 0x100〜  ■      (△)■[k]  —    ■[n]   ■[o]
 
@@ -284,7 +284,9 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
 [n] 和文のみ可能。欧文は不可。pTeXとの互換性のため用意。
 [o] 和文のみ可能。欧文は不可。
 (**) "Latin-1 Letters" (0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF),
- "Latin Extended-A" (0x100..0x17F) の文字はupTeX-1.23より
+ "Latin Extended-A" (0x100..0x17F) の文字はupTeX-1.23より、
+ また "Latin Extended-B" (0x180..0x24F),
+ "Latin Extended Additional" (0x1E00..0x1EFF) の文字はupTeX-1.24より
  defaultを欧文(not_cjk)とする設定を行った。
 
 
@@ -429,32 +431,35 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
 ○Unicode blockに準拠
  (0x00)  0x0000.. 0x007F  <15>  Basic Latin
  (0x02)  0x0100.. 0x017F  <15>  Latin Extended-A
+ (0x03)  0x0180.. 0x024F  <15>  Latin Extended-B
  (0x24)  0x1100.. 0x11FF  <19>  Hangul Jamo
- (0x66)  0x2E80.. 0x2EFF  <16>  CJK Radicals Supplement
- (0x67)  0x2F00.. 0x2FEF  <16>  Kangxi Radicals
- (0x68)  0x2FF0.. 0x2FFF  <16>  Ideographic Description Characters
- (0x6A)  0x3040.. 0x309F  <17>  Hiragana
- (0x6B)  0x30A0.. 0x30FF  <17>  Katakana
- (0x6C)  0x3100.. 0x312F  <16>  Bopomofo
- (0x6D)  0x3130.. 0x318F  <19>  Hangul Compatibility Jamo
- (0x6E)  0x3190.. 0x319F  <16>  Kanbun
- (0x6F)  0x31A0.. 0x31BF  <16>  Bopomofo Extended
- (0x70)  0x31C0.. 0x31EF  <16>  CJK Strokes
- (0x71)  0x31F0.. 0x31FF  <17>  Katakana Phonetic Extensions
- (0x74)  0x3400.. 0x4DBF  <16>  CJK Unified Ideographs Extension A
- (0x76)  0x4E00.. 0x9FFF  <16>  CJK Unified Ideographs
- (0x86)  0xA960.. 0xA97F  <19>  Hangul Jamo Extended-A
- (0x91)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
- (0x92)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
- (0x97)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
- (0xF1)  0x1B000..0x1B0FF <17>  Kana Supplement
- (0xF2)  0x1B100..0x1B16F <17>  Kana Extended-A
- (0x10E) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x10F) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x110) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x111) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x112) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x113) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x45)  0x1E00.. 0x1EFF  <15>  Latin Extended Additional
+ (0x67)  0x2E80.. 0x2EFF  <16>  CJK Radicals Supplement
+ (0x68)  0x2F00.. 0x2FEF  <16>  Kangxi Radicals
+ (0x69)  0x2FF0.. 0x2FFF  <16>  Ideographic Description Characters
+ (0x6B)  0x3040.. 0x309F  <17>  Hiragana
+ (0x6C)  0x30A0.. 0x30FF  <17>  Katakana
+ (0x6D)  0x3100.. 0x312F  <16>  Bopomofo
+ (0x6E)  0x3130.. 0x318F  <19>  Hangul Compatibility Jamo
+ (0x6F)  0x3190.. 0x319F  <16>  Kanbun
+ (0x70)  0x31A0.. 0x31BF  <16>  Bopomofo Extended
+ (0x71)  0x31C0.. 0x31EF  <16>  CJK Strokes
+ (0x72)  0x31F0.. 0x31FF  <17>  Katakana Phonetic Extensions
+ (0x75)  0x3400.. 0x4DBF  <16>  CJK Unified Ideographs Extension A
+ (0x77)  0x4E00.. 0x9FFF  <16>  CJK Unified Ideographs
+ (0x87)  0xA960.. 0xA97F  <19>  Hangul Jamo Extended-A
+ (0x92)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
+ (0x93)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
+ (0x98)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
+ (0xFD)  0x1B000..0x1B0FF <17>  Kana Supplement
+ (0xFE)  0x1B100..0x1B12F <17>  Kana Extended-A
+ (0xFF)  0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x122) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x123) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x124) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x125) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x126) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x127) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
@@ -496,15 +501,17 @@ ukinsoku.tex  JIS X 0213 に対応した。
 CMap UTF8-UTF16
   TeX Live svn に r26540 で取り込まれた。
 ◎ 別の配布に含めたもの
-otfパッケージ  otfbeta-uptex-x.xx.tar.xz として別に公開し、
-  japanese-otf-uptex としてCTANに登録した。
+otfパッケージ  japanese-otf-uptex として公開、CTANに登録した。
+  (以前は otfbeta-uptex-x.xx.tar.xz として公開していた。)
   TeX Live svn に r25264 あたりで取り込まれた。
   プロポーショナル仮名にも対応済み。
   https://ctan.org/pkg/japanese-otf-uptex
+  https://github.com/t-tk/japanese-otf-uptex
 convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
   さらに、out2uni相当動作の-oオプションも追加した。
   convbkmk としてCTANに登録した。
   https://ctan.org/pkg/convbkmk
+  https://github.com/t-tk/convbkmk
 ◎ 日本語TeX開発コミュニティに移管したもの
 upjisr-h.tfmなど
   JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。
@@ -542,6 +549,7 @@ dvi2tty   TeX Live svn に r24634 あたりで取り込まれた。
   さらに、T1,TS1,OT2,T2A,T2B,T2C,X2エンコーディング対応機能が
   TeX Live に r39942 あたりで取り込まれた。
 mendex    TeX Live r33962 あたりで、見出しをUnicode対応とした。
+  さらに r47721 あたりで見出しのデフォルトエンコーディングをUTF-8とした。
 upmendex  mendex をベースに新規に作成した。
   mendex の内部コードをUnicode化し、ICUによるソート、
   読みをJIS X 0213のかなに対応、CJK対応、ラテン文字(含非英語)対応、
