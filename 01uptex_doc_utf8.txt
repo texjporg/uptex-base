@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2019.02.23 Ver1.24
+2019.05.11 Ver1.25
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -222,7 +222,7 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 ※1: 欧文はcatcode 4bit + 文字コード8bit
 (Omegaではcatcode 4bit + 文字コード16bitだが、Omegaへの拡張を視野にいれたい。)
 和文はkcatcode 5bit + 文字コード24bit。
-オリジナルpTeXでは、和文は文字コード16bit, 
+オリジナルpTeXでは、和文は文字コード16bit,
 kcatcodeは、文字コードを引数として表を参照して求めていたが、
 upTeXでは、欧文と同等に(k)catcodeと文字コードの組となるように変更した。
 和文/欧文トークンは 29bit を重ならないように使用していることになる。

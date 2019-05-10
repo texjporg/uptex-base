@@ -1,5 +1,36 @@
 ### ChangeLog / 変更履歴
 
+2019.05.11 Ver1.25-20190511a
+  TeXLive svn r51021 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * kanji.c:
+      Fix bug of kcatcode for Fullwidth ASCII variants,
+      Halfwidth Katakana variants and Halfwidth and Fullwidth Forms
+      in Ver1.24 from Yusuke Terada san
+      https://github.com/texjporg/tex-jp-build/pull/79
+    * kanji.c, kanji.h:
+      Set default internal encoding EUC/SJIS if a command name is
+      with prefix of "p" or "ep", intending to be compatible with
+      pTeX family (ptex, eptex, pbibtex, pdvitype, ppltotf, ptftopl)
+      (experimental).
+    * uptex-m.ch:
+      Make appropreate comparison of U+0100 by \if
+      from Hironori Kitagawa san
+      https://github.com/texjporg/tex-jp-build/issues/68
+  Master/texmf-dist/tex/uptex/uptex-base:
+    * ukinsoku.tex:
+      Add setting of kcatcode for Fullwidth ASCII variants
+      and Halfwidth Katakana variants to work around
+      for bug of Ver1.24
+      https://github.com/texjporg/uptex-base/issues/3
+  samples:
+    Update.
+  01uptex_doc_utf8.txt:
+    Update.
+
 2019.02.23 Ver1.24-20190223a
   TeXLive svn r50082 base
   Build/source/texk/web2c/uptexdir:
