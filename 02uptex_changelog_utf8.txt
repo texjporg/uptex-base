@@ -22,8 +22,8 @@
       https://github.com/texjporg/tex-jp-build/issues/68
   Master/texmf-dist/tex/uptex/uptex-base:
     * ukinsoku.tex:
-      Add setting of kcatcode for Fullwidth ASCII variants
-      and Halfwidth Katakana variants to work around
+      Add setting of kcatcode for block
+      "Halfwidth and Fullwidth Forms" to work around
       for bug of Ver1.24
       https://github.com/texjporg/uptex-base/issues/3
   samples:
