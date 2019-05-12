@@ -78,3 +78,6 @@ console_io.tex, iotext.txt
 
 texxet-jis.tex
   : test for TeX-XeT with e-{p,up}LaTeX
+
+show_kcat.tex  (plain upTeX)
+  : show kcatcode default value
