@@ -1,6 +1,6 @@
 ### ChangeLog / 変更履歴
 
-2019.05.11 Ver1.25-20190511a
+2019.05.12 Ver1.25-20190512a
   TeXLive svn r51021 base
   Build/source/texk/web2c/uptexdir:
     * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
