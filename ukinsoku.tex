@@ -1,4 +1,4 @@
-%% (Last update: 2019/05/11 ttk, texjporg)
+%% (Last update: 2019/05/12 ttk, texjporg)
 %%
 \ifnum\ucs"3000="3000 \else
     \errhelp{Please try to run (e)uptex with option
@@ -6,8 +6,16 @@
     \errmessage{This file should be read with
                 internal Kanji encoding Unicode}\@@end
 \fi
-\kcatcode"FF10=17% Fullwidth ASCII variants
-\kcatcode"FF66=17% Halfwidth Katakana variants
+%%
+%% default kcatcode, workaround for upTeX 1.24
+\edef\upTeXVersionNumber{\the\uptexversion\uptexrevision}%
+\def\upTeXRevIpXXIV{1.24}%
+\ifx\upTeXVersionNumber\upTeXRevIpXXIV
+ \kcatcode"FF00=16% Halfwidth and Fullwidth Forms -> 16(kanji)
+ \message{### special kcatcode setting to work around for upTeX 1.24 ###}
+\fi
+\let\upTeXVersionNumber\relax
+\let\upTeXRevIpXXIV\relax
 %%
 %% 行頭、行末禁則パラメータ
 %%
