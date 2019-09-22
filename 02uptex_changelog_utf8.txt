@@ -1,5 +1,13 @@
 ### ChangeLog / 変更履歴
 
+2019.09.22
+  Master/texmf-dist/tex/uptex/uptex-base:
+    * ukinsoku.tex:
+      Revert setting of kcatcode for block
+      "Halfwidth and Fullwidth Forms" to work around
+      for bug of Ver1.24
+      https://github.com/texjporg/uptex-base/issues/3
+
 2019.05.12 Ver1.25-20190512a
   TeXLive svn r51021 base
   Build/source/texk/web2c/uptexdir:
