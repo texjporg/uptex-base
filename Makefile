@@ -11,7 +11,6 @@ install:
 	cp ./LICENSE ${TEXMF}/doc/uptex/uptex-base/
 	cp ./README.md ${TEXMF}/doc/uptex/uptex-base/
 	cp ./*.txt ${TEXMF}/doc/uptex/uptex-base/
-	cp ./Makefile ${TEXMF}/doc/uptex/uptex-base/
 	mkdir -p ${TEXMF}/doc/uptex/uptex-base/samples
 	cp ./samples/* ${TEXMF}/doc/uptex/uptex-base/samples/
 	mkdir -p ${TEXMF}/tex/uptex/uptex-base
