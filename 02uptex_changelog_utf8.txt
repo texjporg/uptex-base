@@ -1,12 +1,24 @@
 ### ChangeLog / 変更履歴
 
-2019.09.22
+2020.02.22 Ver1.26-20200222a
+  TeXLive svn r50082 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-13.0.0.txt Date: 2019-07-10, 19:06:00 GMT [KW]".
+    * COPYRIGHT, COPYRIGHT.ja:
+      Update copyright year.
   Master/texmf-dist/tex/uptex/uptex-base:
     * ukinsoku.tex:
-      Revert setting of kcatcode for block
-      "Halfwidth and Fullwidth Forms" to work around
-      for bug of Ver1.24
-      https://github.com/texjporg/uptex-base/issues/3
+      Import from GitHub
+      https://github.com/texjporg/uptex-base
+  samples:
+    Update.
+  00readme_uptex.txt, 01uptex_doc_utf8.txt:
+    Update.
 
 2019.05.12 Ver1.25-20190512a
   TeXLive svn r51021 base

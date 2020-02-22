@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- unicode version of ASCII pTeX, pLaTeX
-2019.05.12 Ver1.25
+2020.02.22 Ver1.26
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 [ Contents ]
@@ -24,6 +24,7 @@ No warranty.
     ASCII MEDIA WORKS
     http://ascii.asciimw.jp/pb/ptex/ (dead link)
     https://web.archive.org/web/20161229061414/http://ascii.asciimw.jp/pb/ptex/ (web archive)
+    https://asciidwango.github.io/ptex/ (by DWANGO Co., Ltd.)
 [2] upTeX, upLaTeX ― unicode version of pTeX, pLaTeX
     http://www.t-lab.opal.ne.jp/tex/uptex_en.html
 
