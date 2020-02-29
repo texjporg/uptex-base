@@ -165,3 +165,6 @@ tests/*.pdf
 # samples
 samples/*.pdf
 samples/*.ps
+
+*.zip
+

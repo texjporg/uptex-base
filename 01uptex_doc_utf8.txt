@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2019.05.12 Ver1.25
+2020.02.22 Ver1.26
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -451,15 +451,16 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x92)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
  (0x93)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
  (0x98)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
- (0xFD)  0x1B000..0x1B0FF <17>  Kana Supplement
- (0xFE)  0x1B100..0x1B12F <17>  Kana Extended-A
- (0xFF)  0x1B130..0x1B16F <17>  Small Kana Extension
- (0x122) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x123) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x124) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x125) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x126) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x127) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x103) 0x1B000..0x1B0FF <17>  Kana Supplement
+ (0x104) 0x1B100..0x1B12F <17>  Kana Extended-A
+ (0x105) 0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x129) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x12A) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x12B) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x12C) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x12D) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x12E) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x12F) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
@@ -498,8 +499,6 @@ updvitype 動いている。無問題。
 upbibtex  ほぼ動いている。しかし、jalpha.bst 使用時に
   一部のエントリーでeuc動作と同等にならない問題がある。
 ukinsoku.tex  JIS X 0213 に対応した。
-CMap UTF8-UTF16
-  TeX Live svn に r26540 で取り込まれた。
 ◎ 別の配布に含めたもの
 otfパッケージ  japanese-otf-uptex として公開、CTANに登録した。
   (以前は otfbeta-uptex-x.xx.tar.xz として公開していた。)
@@ -512,6 +511,11 @@ convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
   convbkmk としてCTANに登録した。
   https://ctan.org/pkg/convbkmk
   https://github.com/t-tk/convbkmk
+CMap UTF8-UTF16
+  TeX Live svn に r26540 で取り込まれた。
+  一次配布は http://www.t-lab.opal.ne.jp/tex/uptex.html
+  uptex-fonts の配布に含まれている。
+  https://github.com/texjporg/uptex-fonts
 ◎ 日本語TeX開発コミュニティに移管したもの
 upjisr-h.tfmなど
   JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。
@@ -541,20 +545,23 @@ dvipdfmx  TeX Live svn に r24509 あたりで取り込まれた。
   set3も含めて動いている。
   ただし、set3で、「内部コードがUTF-32, CMapがUniXXX-UTF16」であること
   を仮定したハードコーディングになっているおり、柔軟性は乏しい。
-  bookmark 作成は UTF8-UCS2, UTF8-UTF16 の CMAP または、
+  bookmark 作成は UTF8-UCS2, UTF8-UTF16 の CMap または、
   convbkmk.rbの-oオプションを必要とする。
 dvi2tty   TeX Live svn に r24634 あたりで取り込まれた。
   dvi2tty の NTT JTeX/pTeX 対応版を upTeX 対応にした。
   オプション -J を変更し、 -U, -E を新設した。
   さらに、T1,TS1,OT2,T2A,T2B,T2C,X2エンコーディング対応機能が
   TeX Live に r39942 あたりで取り込まれた。
+  https://github.com/t-tk/dvi2tty
 mendex    TeX Live r33962 あたりで、見出しをUnicode対応とした。
   さらに r47721 あたりで見出しのデフォルトエンコーディングをUTF-8とした。
+  https://github.com/texjporg/tex-jp-build
 upmendex  mendex をベースに新規に作成した。
   mendex の内部コードをUnicode化し、ICUによるソート、
   読みをJIS X 0213のかなに対応、CJK対応、ラテン文字(含非英語)対応、
   キリル文字対応、ギリシャ文字対応となっている。
   TeX Live svn に r39638 あたりで取り込まれた。
+  https://github.com/t-tk/upmendex-package
 upmpost   TeX Live r35188 あたりでupmetapostの名前で取り込まれ、
   現在upmpostの名前になっている。
   ただし、おそらくuptex-0.30の頃と同様、
