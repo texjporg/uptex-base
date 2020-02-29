@@ -1,7 +1,13 @@
 ### ChangeLog / 変更履歴
 
+2020.02.29 Ver1.26-20200229a
+  samples:
+    Update.
+  01uptex_doc_utf8.txt:
+    Update.
+
 2020.02.22 Ver1.26-20200222a
-  TeXLive svn r50082 base
+  TeXLive svn r53078 base
   Build/source/texk/web2c/uptexdir:
     * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
       uptex_version.h:

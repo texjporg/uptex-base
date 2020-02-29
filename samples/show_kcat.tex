@@ -333,4 +333,53 @@
 \message{\kco{F0000}}% Supplementary Private Use Area-A
 \message{\kco{100000}}% Supplementary Private Use Area-B
 
+
+%%% block separation
+\message{check block separation default:}
+\message{\KC{§}{00A7}}% U+00A7 Latin-1 Supplement
+\message{\KC{À}{00C0}}% U+00C0 "Latin-1 Letters" in Latin-1 Supplement
+\message{\KC{０}{FF10}}% U+FF10 "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\message{\KC{＠}{FF20}}% U+FF20 Halfwidth and Fullwidth Forms
+\message{\KC{ｦ}{FF66}}% U+FF66 "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+
+
+\message{1st:}
+\kcatcode"00A7=18% U+00A7+§  Latin-1 Supplement, symbols
+\kcatcode"00C0=18% U+00C0:À  Latin-1 Supplement, Latin-1 letters
+\kcatcode"FF10=18% U+FF10:０  "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\kcatcode"FF20=18% U+FF20:＠  Halfwidth and Fullwidth Forms
+\kcatcode"FF66=18% U+FF66:ｦ  "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+\message{\KC{§}{00A7}}% U+00A7 Latin-1 Supplement
+\message{\KC{À}{00C0}}% U+00C0 "Latin-1 Letters" in Latin-1 Supplement
+\message{\KC{０}{FF10}}% U+FF10 "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\message{\KC{＠}{FF20}}% U+FF20 Halfwidth and Fullwidth Forms
+\message{\KC{ｦ}{FF66}}% U+FF66 "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+
+
+\message{2nd:}
+\kcatcode"00A7=17% U+00A7+§  Latin-1 Supplement, symbols
+\kcatcode"00C0=18% U+00C0:À  Latin-1 Supplement, Latin-1 letters
+\kcatcode"FF10=16% U+FF10:０  "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\kcatcode"FF20=17% U+FF20:＠  Halfwidth and Fullwidth Forms
+\kcatcode"FF66=18% U+FF66:ｦ  "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+\message{\KC{§}{00A7}}% U+00A7 Latin-1 Supplement
+\message{\KC{À}{00C0}}% U+00C0 "Latin-1 Letters" in Latin-1 Supplement
+\message{\KC{０}{FF10}}% U+FF10 "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\message{\KC{＠}{FF20}}% U+FF20 Halfwidth and Fullwidth Forms
+\message{\KC{ｦ}{FF66}}% U+FF66 "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+
+
+\message{3rd:}
+\kcatcode"00A7=18% U+00A7+§  Latin-1 Supplement, symbols
+\kcatcode"00C0=17% U+00C0:À  Latin-1 Supplement, Latin-1 letters
+\kcatcode"FF10=19% U+FF10:０  "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\kcatcode"FF20=18% U+FF20:＠  Halfwidth and Fullwidth Forms
+\kcatcode"FF66=17% U+FF66:ｦ  "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+\message{\KC{§}{00A7}}% U+00A7 Latin-1 Supplement
+\message{\KC{À}{00C0}}% U+00C0 "Latin-1 Letters" in Latin-1 Supplement
+\message{\KC{０}{FF10}}% U+FF10 "Fullwidth ASCII variants" in Halfwidth and Fullwidth Forms
+\message{\KC{＠}{FF20}}% U+FF20 Halfwidth and Fullwidth Forms
+\message{\KC{ｦ}{FF66}}% U+FF66 "Halfwidth Katakana variants" in Halfwidth and Fullwidth Forms
+
+
 \end
