@@ -248,18 +248,20 @@ jbibp:
 jbibu:
 	for be in uptex; do \
 	for fe in utf8; do \
-		rm -f jbib2-utf8.aux jbib2-utf8.bbl ; \
-		$(UPLATEX) -kanji=$$fe jbib2-utf8.tex ; \
-		$(UPBIBTEX) -kanji=$$fe --kanji-internal=$$be jbib2-utf8 ; \
-		$(UPLATEX) -kanji=$$fe jbib2-utf8.tex ; \
-		$(UPLATEX) -kanji=$$fe jbib2-utf8.tex ; \
-		perl check_enc.pl $$fe jbib2-utf8.aux jbib2-utf8.bbl || exit ; \
-		mv jbib2-utf8.dvi jbib2-$$fe-$$be.dvi ; \
-		mv jbib2-utf8.log jbib2-$$fe-$$be.log ; \
-		mv jbib2-utf8.aux jbib2-$$fe-$$be.aux ; \
-		mv jbib2-utf8.bbl jbib2-$$fe-$$be.bbl ; \
-		mv jbib2-utf8.blg jbib2-$$fe-$$be.blg ; \
-		$(DVIPDFMX) jbib2-$$fe-$$be.dvi ; \
+	for no in 2 3; do \
+		rm -f jbib$$no-utf8.aux jbib$$no-utf8.bbl ; \
+		$(UPLATEX) -kanji=$$fe jbib$$no-utf8.tex ; \
+		$(UPBIBTEX) -kanji=$$fe --kanji-internal=$$be jbib$$no-utf8 ; \
+		$(UPLATEX) -kanji=$$fe jbib$$no-utf8.tex ; \
+		$(UPLATEX) -kanji=$$fe jbib$$no-utf8.tex ; \
+		perl check_enc.pl $$fe jbib$$no-utf8.aux jbib$$no-utf8.bbl || exit ; \
+		mv jbib$$no-utf8.dvi jbib$$no-$$fe-$$be.dvi ; \
+		mv jbib$$no-utf8.log jbib$$no-$$fe-$$be.log ; \
+		mv jbib$$no-utf8.aux jbib$$no-$$fe-$$be.aux ; \
+		mv jbib$$no-utf8.bbl jbib$$no-$$fe-$$be.bbl ; \
+		mv jbib$$no-utf8.blg jbib$$no-$$fe-$$be.blg ; \
+		$(DVIPDFMX) jbib$$no-$$fe-$$be.dvi ; \
+	done ; \
 	done ; \
 	done
 
