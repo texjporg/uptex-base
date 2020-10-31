@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2020.02.22 Ver1.26
+2020.10.25 Ver1.27
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -467,6 +467,37 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
 
+◇ upbibtex の is.kanji.str$
+upbibtex(内部コード -kanji-internal=uptex)の is.kanji.str$ の返り値は以下に示すとおりとする。
+以下に明示されていないブロックは現在falseが返る実装となっているが仕様としては未定義とする。
+trueに変更した方が利便性が高い等の判断があった場合、将来の版で変更する可能性もある。
+
+◎trueのブロック
+upTeXのkcatcodeのデフォルト値が16,17,19のブロックは返り値をtrueとする。
+
+◎falseのブロック
+以下に示すブロックは返り値をfalseとする。
+ ○Unicode blockに準拠
+ (0x00)  0x0000.. 0x007F  <15>  Basic Latin
+ (0x02)  0x0100.. 0x017F  <15>  Latin Extended-A
+ (0x03)  0x0180.. 0x024F  <15>  Latin Extended-B
+         0x0370.. 0x03FF  <18>  Greek and Coptic
+         0x0400.. 0x04FF  <18>  Cyrillic
+         0x0500.. 0x052F  <18>  Cyrillic Supplement
+         0x1C80.. 0x1C8F  <18>  Cyrillic Extended-C
+ (0x45)  0x1E00.. 0x1EFF  <15>  Latin Extended Additional
+         0x1F00.. 0x1FFF  <18>  Greek Extended
+         0x2C60.. 0x2C7F  <18>  Latin Extended-C
+         0x2DE0.. 0x2DFF  <18>  Cyrillic Extended-A
+         0x3000.. 0x303F  <18>  CJK Symbols and Punctuation
+         0x3200.. 0x32FF  <18>  Enclosed CJK Letters and Months
+         0x3300.. 0x33FF  <18>  CJK Compatibility
+         0xA640.. 0xA69F  <18>  Cyrillic Extended-B
+         0xA720.. 0xA7FF  <18>  Latin Extended-D
+         0xAB30.. 0xAB6F  <18>  Latin Extended-E
+         0xFE30.. 0xFE4F  <18>  CJK Compatibility Forms (全角英数、半角カナを除く)
+ ○Unicode blockの例外
+ (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
 
 ◇ ukinsoku.tex に関する注意事項
 ukinsoku.tex で行なった禁則ペナルティに関する設定において、
@@ -590,9 +621,7 @@ utfパッケージ  uptex-0.30では動いている。
   文字合成で表される仮名等)を使えるようにする。
 < dviware, 外部ソフト関連 >
 [3] upmpost で多書体が使えるようにする。
-[4] upbibtex で、jalpha.bst 使用時に
-  一部のエントリーでeuc動作と同等にならない問題点の解決。
 < その他 >
-[5] ドキュメントの充実。
-[6] 英語ドキュメントを書く。
+[4] ドキュメントの充実。
+[5] 英語ドキュメントを書く。
 
