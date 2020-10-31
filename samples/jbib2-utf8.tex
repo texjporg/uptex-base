@@ -1,4 +1,5 @@
 \documentclass{ujarticle}
+\usepackage[T1]{fontenc}
 
 %%%%%%%%
 % set3 関連の制御をコマンドラインから行う
@@ -21,6 +22,7 @@
 \textheight245mm
 
 \begin{document}
+\fontencoding{T1}\selectfont
 \section{欧文}
 
 jbibtexのテスト\cite{article-minimal}。
@@ -140,24 +142,6 @@ jbibtexのテスト\cite{改行位置4b}。
 jbibtexのテスト\cite{改行位置4c}。
 jbibtexのテスト\cite{改行位置4d}。
 \fi
-
-\section{upTeX用テストデータ}
-jbibtexのテスト\cite{森鷗外:百物語}。
-jbibtexのテスト\cite{里見弴:極楽とんぼ}。
-jbibtexのテスト\cite{国書:丿乀集}。
-jbibtexのテスト\cite{グラハム:Unicode™標準入門}。
-jbibtexのテスト\cite{test:misc0}。
-jbibtexのテスト\cite{test:misc1}。
-jbibtexのテスト\cite{test:misc2}。
-% set3対応フォント+dviwareなら、「𠮷」もUTF-8で直接書ける。
-\ifx\withsetthree\withsetthreetmp\else
-jbibtexのテスト\cite{髙島𠮷野}。
-\fi
-
-%欧文8bit多バイトをタグに使うのはうまくいっていない。
-%jbibtexのテスト\cite{Lautréamont}。
-%jbibtexのテスト\cite{Schnitzler}。
-%jbibtexのテスト\cite{Булгаков}。
 
 
 %\bibliographystyle{jplain}

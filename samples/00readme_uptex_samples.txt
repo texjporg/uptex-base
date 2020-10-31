@@ -40,8 +40,8 @@ simple-u-jis.tex, simple-u-utf8.tex, simple-utf8.tex
   : test for encodings
     test for dvi2tty
 
-jbib1-jis.tex, jbib2-utf8.tex, jbtest.bib, linebreak.bib
-  : test for jBibTeX
+jbib1-jis.tex, jbib2-utf8.tex, jbib3-utf8.tex, jbtest.bib, linebreak.bib
+  : test for upBibTeX
 
 area-euc-incl.tex, area-euc.mp, area-jis-incl.tex, area-jis.mp,
 area-sjis-incl.tex, area-sjis.mp, area-uptex-incl.tex, area-uptex.mp,

@@ -1,5 +1,25 @@
 ### ChangeLog / 変更履歴
 
+2020.10.31 Ver1.27-20201031a
+  TeXLive svn r56746 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
+      uptex_version.h:
+      Update upTeX version number.
+    * upbibtex.ch:
+      Make is.kanji.str$ false for Latin, Cyrillic, Greek scripts
+      and CJK symbols.
+      https://github.com/texjporg/tex-jp-build/issues/109
+    * tests/unibib.{tex,bib,aux,bbl}: Test case.
+      (Thanks to Yamashita san)
+  Master/texmf-dist/tex/uptex/uptex-base:
+    * Removed. Now it is distributed at
+      https://github.com/texjporg/uptex-base
+  samples:
+    Update.
+  00readme_uptex.txt, 01uptex_doc_utf8.txt:
+    Update.
+
 2020.02.29 Ver1.26-20200229a
   samples:
     Update.

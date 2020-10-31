@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- unicode version of ASCII pTeX, pLaTeX
-2020.02.22 Ver1.26
+2020.10.31 Ver1.27
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 [ Contents ]
@@ -7,8 +7,6 @@ TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 01uptex_doc_utf8.txt :: A document (in Japanese)
 02uptex_changelog_utf8.txt :: Change Log
 under Build/ ::  sources of binaries
-under Master/ :: ini file etc.
-under bin/ :: utility
 under samples/ :: samples for test
 
 [ Building upTeX ]
