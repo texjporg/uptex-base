@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2020.10.25 Ver1.27
+2020.10.31 Ver1.27
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -527,9 +527,8 @@ uptex     動いている。無問題。
 uppltotf  動いている。無問題。
 uptftopl  動いている。無問題。
 updvitype 動いている。無問題。
-upbibtex  ほぼ動いている。しかし、jalpha.bst 使用時に
-  一部のエントリーでeuc動作と同等にならない問題がある。
-ukinsoku.tex  JIS X 0213 に対応した。
+upbibtex  ほぼ動いている。jalpha.bst 使用時に
+  一部のエントリーでeuc動作と同等にならないが、許容範囲とする。
 ◎ 別の配布に含めたもの
 otfパッケージ  japanese-otf-uptex として公開、CTANに登録した。
   (以前は otfbeta-uptex-x.xx.tar.xz として公開していた。)
@@ -556,6 +555,9 @@ upjisr-h.tfmなど
   upjisr-h.vfなどにBMP外の文字も一部追加した。
   以降、開発元は下記に移管。
     https://github.com/texjporg/uptex-fonts
+ukinsoku.tex  JIS X 0213 に対応した。
+  以降、uptex.tex, uptex.iniも含め開発元は下記に移管。
+    https://github.com/texjporg/uptex-base
 uplatex   動いている。無問題。
   以降、開発元は下記に移管。
     https://github.com/texjporg/uplatex
