@@ -13,8 +13,7 @@
     * tests/unibib.{tex,bib,aux,bbl}: Test case.
       (Thanks to Yamashita san)
   Master/texmf-dist/tex/uptex/uptex-base:
-    * ukinsoku.tex:
-      Import from GitHub
+    * Removed. Now it is distributed at
       https://github.com/texjporg/uptex-base
   samples:
     Update.
