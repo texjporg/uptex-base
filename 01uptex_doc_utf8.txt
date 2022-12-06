@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2022.01.23 Ver1.28
+2022.07.23 Ver1.29
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -433,7 +433,6 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x46)  0x1E00.. 0x1EFF  <15>  Latin Extended Additional
  (0x68)  0x2E80.. 0x2EFF  <16>  CJK Radicals Supplement
  (0x69)  0x2F00.. 0x2FEF  <16>  Kangxi Radicals
- (0x6A)  0x2FF0.. 0x2FFF  <16>  Ideographic Description Characters
  (0x6C)  0x3040.. 0x309F  <17>  Hiragana
  (0x6D)  0x30A0.. 0x30FF  <17>  Katakana
  (0x6E)  0x3100.. 0x312F  <16>  Bopomofo
@@ -448,22 +447,25 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x93)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
  (0x94)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
  (0x99)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
- (0x10A) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
- (0x10B) 0x1B000..0x1B0FF <17>  Kana Supplement
- (0x10C) 0x1B100..0x1B12F <17>  Kana Extended-A
- (0x10D) 0x1B130..0x1B16F <17>  Small Kana Extension
- (0x135) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x136) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x137) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x138) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x139) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x13A) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
- (0x13B) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
+ (0x10D) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
+ (0x10E) 0x1B000..0x1B0FF <17>  Kana Supplement
+ (0x10F) 0x1B100..0x1B12F <17>  Kana Extended-A
+ (0x110) 0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x13B) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x13C) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x13D) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x13E) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x13F) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x140) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x141) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
+ (0x142) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
+
+Ideographic Description Characters は upTeX 1.29で <16> から <18> に変更した。
 
 ◇ upbibtex の is.kanji.str$
 upbibtex(内部コード -kanji-internal=uptex)の is.kanji.str$ の返り値は以下に示すとおりとする。
@@ -471,7 +473,7 @@ upbibtex(内部コード -kanji-internal=uptex)の is.kanji.str$ の返り値は
 trueに変更した方が利便性が高い等の判断があった場合、将来の版で変更する可能性もある。
 
 ◎trueのブロック
-upTeXのkcatcodeのデフォルト値が16,17,19のブロックは返り値をtrueとする。
+upTeXのkcatcodeのデフォルト値が16(kanji),17(kana),19(hangul)のブロックは返り値をtrueとする。
 
 ◎falseのブロック
 以下に示すブロックは返り値をfalseとする。
@@ -533,7 +535,8 @@ otfパッケージ  japanese-otf-uptex として公開、CTANに登録した。
   (以前は otfbeta-uptex-x.xx.tar.xz として公開していた。)
   TeX Live svn に r25264 あたりで取り込まれた。
   プロポーショナル仮名にも対応済み。
-  https://ctan.org/pkg/japanese-otf-uptex
+  CTAN投稿版は japanese-otf に含まれるようになった。
+  https://ctan.org/pkg/japanese-otf
   https://github.com/t-tk/japanese-otf-uptex
 convbkmk.rb   dvipsでのbookmark作成のためのrubyスクリプト。
   さらに、out2uni相当動作の-oオプションも追加した。

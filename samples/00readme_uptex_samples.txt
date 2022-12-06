@@ -45,7 +45,7 @@ jbib1-jis.tex, jbib2-utf8.tex, jbib3-utf8.tex, jbtest.bib, linebreak.bib
 
 area-euc-incl.tex, area-euc.mp, area-jis-incl.tex, area-jis.mp,
 area-sjis-incl.tex, area-sjis.mp, area-uptex-incl.tex, area-uptex.mp,
-area-utf8-incl.tex, area-utf8.mp, 
+area-utf8-incl.tex, area-utf8.mp,
 jstr-euc-incl.tex, jstr-euc.mp, jstr-jis-incl.tex, jstr-jis.mp,
 jstr-sjis-incl.tex, jstr-sjis.mp, jstr-uptex-incl.tex, jstr-uptex.mp,
 jstr-utf8-incl.tex, jstr-utf8.mp
