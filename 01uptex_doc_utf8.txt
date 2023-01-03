@@ -544,9 +544,9 @@ CMap UTF8-UTF16
   uptex-fonts の配布に含まれている。
   https://github.com/texjporg/uptex-fonts
 ◎ 日本語TeX開発コミュニティに移管したもの
-uppltotf,uptftopl,updvitype  TeX Live svn r65178で
+uppltotf,uptftopl,updvitype  TeX Live svn r65178 で
   ppltotf,ptftopl,pdvitype とソース、バイナリを統合した。
-upbibtex  TeX Live svn r65178で pbibtex とソース、バイナリを統合した。
+upbibtex  TeX Live svn r65178 で pbibtex とソース、バイナリを統合した。
   jalpha.bst 使用時に一部のエントリーでeuc動作と同等にならないが、許容範囲とする。
 upjisr-h.tfmなど
   JIS X 0208の範囲ではほぼUnicodeに移植出来ていると思う。
