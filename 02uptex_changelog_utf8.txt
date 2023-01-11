@@ -1,22 +1,28 @@
 ### ChangeLog / 変更履歴
 
-2022.07.23 Ver1.29-20220723a
-  TeXLive svn r63961 base
+2023.01.12 Ver1.29-20230112a
+  TeXLive svn r65330 base
   Build/source/texk/web2c/uptexdir:
-    * uptex-m.ch, uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch,
-      uptex_version.h:
+    * uptex-m.ch, uptex_version.h:
       Bump upTeX version.
-    * uptex-m.ch, upbibtex.ch, kanji.c:
+    * uptex-m.ch, kanji.c:
       Update reference of Unicode blocks to
       "Blocks-15.0.0.txt Date: 2022-01-28, 20:58:00 GMT [KW]".
-    * upbibtex.ch:
-      Accept multibyte characters by int.to.chr$ and chr.to.int$, i.e.
-      chr is corresponding to one single character multibyte string.
-      Support Latin-1, Latin Extended-A, Greek and Cyrillic on change.case$.
-      Ignore add.period$ after Interrobang ‽.
-      Make is.kanji.str$ false for Ideographic Description Characters.
-    * tests/kcat.tex, tests/upkcat.txt, tests/upbibtex.test:
+    * uptex.defines, kanji.h:
+      Accept file names with JIS X 0208 characters
+      in `uptex --kanji-internal={euc,sjis}`.
+      from Hironori Kitagawa san
+      https://github.com/texjporg/tex-jp-build/issues/136
+    * uptex-m.ch:
+      Fix a bug that \inhibitxspcode after Japanese
+      character was ineffective due to lack of mod max_cjk_val
+      from Hironori Kitagawa san
+      https://github.com/texjporg/tex-jp-build/issues/32#issuecomment-1345658551
+    * tests/kcat.tex, tests/upkcat.txt:
       Update tests.
+    * uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch:
+      Delete from this release because maintainance
+      has been transfered to Japanese TeX Development Community
   samples:
     Update.
   00readme_uptex.txt, 01uptex_doc_utf8.txt:
