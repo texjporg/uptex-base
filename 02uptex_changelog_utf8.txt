@@ -1,5 +1,33 @@
 ### ChangeLog / 変更履歴
 
+2023.01.12 Ver1.29-20230112a
+  TeXLive svn r65330 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uptex_version.h:
+      Bump upTeX version.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-15.0.0.txt Date: 2022-01-28, 20:58:00 GMT [KW]".
+    * uptex.defines, kanji.h:
+      Accept file names with JIS X 0208 characters
+      in `uptex --kanji-internal={euc,sjis}`.
+      from Hironori Kitagawa san
+      https://github.com/texjporg/tex-jp-build/issues/136
+    * uptex-m.ch:
+      Fix a bug that \inhibitxspcode after Japanese
+      character was ineffective due to lack of mod max_cjk_val
+      from Hironori Kitagawa san
+      https://github.com/texjporg/tex-jp-build/issues/32#issuecomment-1345658551
+    * tests/kcat.tex, tests/upkcat.txt:
+      Update tests.
+    * uppltotf.ch, uptftopl.ch, updvitype.ch, upbibtex.ch:
+      Delete from this release because maintainance
+      has been transfered to Japanese TeX Development Community
+  samples:
+    Update.
+  00readme_uptex.txt, 01uptex_doc_utf8.txt:
+    Update.
+
 2022.01.23 Ver1.28-20220123a
   TeXLive svn r61708 base
   Build/source/texk/web2c/uptexdir:
