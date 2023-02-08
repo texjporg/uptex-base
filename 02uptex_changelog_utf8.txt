@@ -1,5 +1,9 @@
 ### ChangeLog / 変更履歴
 
+2023.02.12 Ver1.29-20230212a
+  samples:
+    Update.
+
 2023.01.12 Ver1.29-20230112a
   TeXLive svn r65330 base
   Build/source/texk/web2c/uptexdir:
