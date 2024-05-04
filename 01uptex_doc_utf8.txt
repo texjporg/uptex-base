@@ -418,11 +418,12 @@ Korean               HYSMyeongJo-Medium  HYGoThic-Medium
 
 
 ◇ kcatcode のデフォルト値
-kcatcodeの意味は、15: not_cjk, 16: kanji, 17: kana, 18: other_kchar, 19: hangul
+kcatcodeの意味は、15: not_cjk, 16: kanji, 17: kana, 18: other_kchar, 19: hangul, 20: modifier
 kcatcodeが15(not_cjk)の場合は欧文扱いになる。
 kcatcodeは原則としてUnicodeのblock毎に与えられる。
 (Ref. http://www.unicode.org/Public/UNIDATA/Blocks.txt)
-ただし、例外の文字集合が3個ある。
+ただし、例外の文字集合が7個ある。
+さらに、合成文字を表すためにUnicode範囲外をupTeXの内部コードとして利用する。
 文字コード値0x0080以上のブロックでは原則18(other_kchar)が設定されている。
 下記の表にはそれ以外の値のものを記載した。左端はブロックの通し番号。
 ○Unicode blockに準拠
@@ -462,11 +463,43 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x143) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
+ (0x1F9) 0x3099..0x309A   <20>  Combining kana (semi-)voiced sound mark
+ (0x1FA) 0x20E3           <20>  Combining enclosing keycap
+ (0x1FB) 0x1F1E6..0x1F1FF <20>  Regional indicator symbol letter
+ (0x1FC) 0x1F3FB..0x1F3FF <20>  Emoji modifier Fitzpatric type1..6
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
+○Unicodeの範囲外を合成文字に対応するupTeXの内部コードとして利用する
+ (0x165) 0x220000..0x23FFFF <17>  Kana with Voiced Sound Mark
+ (0x166) 0x240000..0x25E6E5 <17>  Kana with Semi-Voiced Sound Mark
+ (0x167) 0x25E6E6..0x25FFFF <18>  Emoji Flag Sequence
+ (0x168) 0x260000..0x2FFFFF <18>  Emoji with Modifier Fitzpatrick
+ (0x16A) 0x400000..0x7FFFFF <16>  Standardized Variation Sequence
+ (0x16B) 0x800000..0x80007F <18>  Emoji Keycap Sequence
+ (0x16C) 0x800080..0xFFFFFF <16>  Ideographic Variation Sequence, VS16..VS48
+ (0x16D) 0x1000000..0x43FFFFF <16>  Ideographic Variation Sequence, VS49..VS256
 
 Ideographic Description Characters は upTeX 1.29で <16> から <18> に変更した。
+
+◇ 合成文字の内部コード (upTeX 1.35以降)
+Unicodeで複数のコードポイントで一つの書記素に対応させる文字(合成文字)を扱うために
+文字コード値0x220000以上のUnicode範囲外をupTeXの内部コードおよび
+DVIの出力時の文字コードとして利用する。
+内部コードを得るのには以下の演算を用いる。
+UTF-8では正規のUnicodeのコードポイントの列に戻して表現する。
+・Kana with (Semi-)Voiced Sound Mark
+  ((modifier - 0x3099) << 17) + 0x220000 + base
+・Emoji Modifier Fitzpatrick
+  ((modifier - 0x1F3FB) << 17) + 0x260000 + base
+・RGI Emoji Flag Sequence
+  (base << 8) + modifier + 0x250000;
+・RGI Emoji Keycap Sequence (U+00xx U+FE0F U+20E3)
+  0x800000 + base;
+・Standardized Variation Sequence
+  ((modifier - 0xFE00) << 18) + 0x400000 + base
+・Ideographic Variation Sequence
+  ((modifier - 0xE0100) << 18) + 0x800000 + base
 
 ◇ upbibtex の is.kanji.str$
 upbibtex(内部コード -kanji-internal=uptex)の is.kanji.str$ の返り値は以下に示すとおりとする。
