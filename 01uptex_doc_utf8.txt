@@ -447,21 +447,28 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x93)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
  (0x94)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
  (0x99)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
- (0x10D) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
- (0x10E) 0x1B000..0x1B0FF <17>  Kana Supplement
- (0x10F) 0x1B100..0x1B12F <17>  Kana Extended-A
- (0x110) 0x1B130..0x1B16F <17>  Small Kana Extension
- (0x13B) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x13C) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x13D) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x13E) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x13F) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x140) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
- (0x141) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
- (0x142) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
- (0x143) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
+ (0x9C)  0xFE00.. 0xFE0F  <20>  Variation Selectors
+ (0x115) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
+ (0x116) 0x1B000..0x1B0FF <17>  Kana Supplement
+ (0x117) 0x1B100..0x1B12F <17>  Kana Extended-A
+ (0x118) 0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x145) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x146) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x147) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x148) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x149) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x14A) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
+ (0x14B) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x14C) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
+ (0x14D) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
+ (0x14E) 0x323B0..0x3347F <16>  CJK Unified Ideographs Extension J (Unicode 17.0予定)
+ (0x15B) 0xE0100..0xE01EF <20>  Variation Selectors Supplement
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
+ (0x1F9) 0x3099, 0x309A                                 <20>  Combining Kana (Semi-)Voiced Sound Mark
+ (0x1FA) 0x20E3                                         <20>  Combining Enclosing Keycap
+ (0x1FB) 0x1F1E6..0x1F1FF                               <20>  Regional Indicator Symbol letters
+ (0x1FC) 0x1F3FB..1F3FF                                 <20>  Emoji Modifier Fitzpatric Type1..6
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
