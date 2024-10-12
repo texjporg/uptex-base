@@ -1,5 +1,26 @@
 ### ChangeLog / 変更履歴
 
+2024.10.12 Ver1.35-20241012a
+  TeXLive svn r72532 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch, uptex_version.h:
+      Bump upTeX version.
+    * uptex-m.ch, kanji.c:
+      Update reference of Unicode blocks to
+      "Blocks-16.0.0.txt Date: 2024-02-22".
+    * uptex-m.ch, kanji.c, kanji.h, uptex.defines:
+      Add kcatcode 20 (modifier) to support
+      Unicode compound characters and variation sequences.
+      https://github.com/texjporg/tex-jp-build/issues/46
+    * COPYRIGHT, COPYRIGHT.ja:
+      Update copyright year.
+    * uptriptest.test, tests/kcat.tex, tests/upkcat.txt:
+      Update tests.
+  samples:
+    Update.
+  00readme_uptex.txt, 01uptex_doc_utf8.txt:
+    Update.
+
 2023.09.16 Ver1.30-20230916a
   TeXLive svn r68294 base
   Build/source/texk/web2c/uptexdir:
