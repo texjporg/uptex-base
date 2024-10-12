@@ -22,7 +22,7 @@ sangoku-uplatex.tex, sangoku-uptex.tex
 
 aozora-ujarticle-utf8.tex, aozora-ujbook-utf8.tex,
 aozora-ujreport-utf8.tex, aozora-utarticle-utf8.tex,
-aozora-utbook-utf8.tex, aozora-utf8.tex, aozora-utreport-utf8.tex
+aozora-utbook-utf8.tex, aozora-utreport-utf8.tex
   : test for document classes
 
 udhr-algrya.tex, udhr-cgrmd.tex, udhr-clara.tex, udhr-dejavu.tex,

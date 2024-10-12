@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2023.09.16 Ver1.30
+2024.10.12 Ver1.35
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい
@@ -129,7 +129,7 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
     内部エンコーディングはほぼUTF-32(註1)。
 <2> 入力ファイル(.texなど)はUTF-8とISO-2022-JPの自動判定。
     出力ファイル(.log, .auxなど)はUTF-8。
-<3> tfm(jfm)のエンコーディングはほぼUTF-32(註1)、
+<3> tfm(jfm)のエンコーディングはほぼUTF-32(註2)、
     エンコーディング名は JY2, JT2 とする。
     U+FFFF以下の文字では、jfmのフォーマットは従来のpTeXと互換である。
     U+FFFFを越える文字は、defaultではU+2xxxx(SIP)の漢字を想定し、
@@ -139,11 +139,15 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 <4> dvi, vfにはUnicodeスカラー値を2〜3バイトで記録する(註2)。
     U+FFFF以下の文字はset2で、U+FFFFを越える文字はset3で扱う。
     和文として扱える文字コードの最大値はUnicodeの最大値U+10FFFF。
+    さらに、0x220000以上0xFFFFFF以下をUnicode合成文字用の
+    内部文字コードとして使用する。(upTeX-1.35新規)
 <5> 和文、欧文の切替えは、コードレンジのチェックに加えkcatcodeを見て行う。
     kcatcode=16,17,18なら漢字,かな,和文その他記号(pTeXと同様)で、
     kcatcode=15なら欧文、非CJKの文字(新規)。
     kcatcode=19ならhangul(新規)。hangul直後の改行は欧文同様
     空白と看做すが、それ以外の点では、漢字と全く同じ動作になっている。
+    kcatcode=20ならmodifier(upTeX-1.35新規)。Unicodeで合成用の文字
+    または異体字セレクタ。
 <6> 欧文と判定されればUTF-8の8bit可変長文字列として内部処理する。
     オリジナルの欧文TeXと完全に互換の処理ができる。
     すなわち、欧文LaTeXの\inputenc{utf8}やBabelが障害なく利用できる。
@@ -423,7 +427,7 @@ kcatcodeが15(not_cjk)の場合は欧文扱いになる。
 kcatcodeは原則としてUnicodeのblock毎に与えられる。
 (Ref. http://www.unicode.org/Public/UNIDATA/Blocks.txt)
 ただし、例外の文字集合が7個ある。
-さらに、合成文字を表すためにUnicode範囲外をupTeXの内部コードとして利用する。
+さらに、Unicode合成文字を表すためにUnicode範囲外をupTeXの内部コードとして利用する。
 文字コード値0x0080以上のブロックでは原則18(other_kchar)が設定されている。
 下記の表にはそれ以外の値のものを記載した。左端はブロックの通し番号。
 ○Unicode blockに準拠
@@ -448,58 +452,96 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x93)  0xAC00.. 0xD7AF  <19>  Hangul Syllables
  (0x94)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
  (0x99)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
- (0x10D) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
- (0x10E) 0x1B000..0x1B0FF <17>  Kana Supplement
- (0x10F) 0x1B100..0x1B12F <17>  Kana Extended-A
- (0x110) 0x1B130..0x1B16F <17>  Small Kana Extension
- (0x13B) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x13C) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x13D) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x13E) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x13F) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x140) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
- (0x141) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
- (0x142) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
- (0x143) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
+ (0x9C)  0xFE00.. 0xFE0F  <20>  Variation Selectors
+ (0x115) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
+ (0x116) 0x1B000..0x1B0FF <17>  Kana Supplement
+ (0x117) 0x1B100..0x1B12F <17>  Kana Extended-A
+ (0x118) 0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x145) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x146) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x147) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x148) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x149) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x14A) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
+ (0x14B) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x14C) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
+ (0x14D) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
+ (0x14E) 0x323B0..0x3347F <16>  CJK Unified Ideographs Extension J (Unicode 17.0予定)
+ (0x15B) 0xE0100..0xE01EF <20>  Variation Selectors Supplement
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
- (0x1F9) 0x3099..0x309A   <20>  Combining kana (semi-)voiced sound mark
- (0x1FA) 0x20E3           <20>  Combining enclosing keycap
- (0x1FB) 0x1F1E6..0x1F1FF <20>  Regional indicator symbol letter
- (0x1FC) 0x1F3FB..0x1F3FF <20>  Emoji modifier Fitzpatric type1..6
+ (0x1F9) 0x3099, 0x309A       <20>  Combining Kana (Semi-)Voiced Sound Mark
+ (0x1FA) 0x20E3               <20>  Combining Enclosing Keycap
+ (0x1FB) 0x1F1E6..0x1F1FF     <20>  Regional Indicator Symbol letters
+ (0x1FC) 0x1F3FB..0x1F3FF     <20>  Emoji Modifier Fitzpatric Type1..6
  (0x1FD) 0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF <15>  Latin-1 Letters
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
 ○Unicodeの範囲外を合成文字に対応するupTeXの内部コードとして利用する
- (0x165) 0x220000..0x23FFFF <17>  Kana with Voiced Sound Mark
- (0x166) 0x240000..0x25E6E5 <17>  Kana with Semi-Voiced Sound Mark
- (0x167) 0x25E6E6..0x25FFFF <18>  Emoji Flag Sequence
- (0x168) 0x260000..0x2FFFFF <18>  Emoji with Modifier Fitzpatrick
- (0x16A) 0x400000..0x7FFFFF <16>  Standardized Variation Sequence
- (0x16B) 0x800000..0x80007F <18>  Emoji Keycap Sequence
- (0x16C) 0x800080..0xFFFFFF <16>  Ideographic Variation Sequence, VS16..VS48
- (0x16D) 0x1000000..0x43FFFFF <16>  Ideographic Variation Sequence, VS49..VS256
+ (0x170) 0x220000..0x23FFFF   <17>  Kana with Voiced Sound Mark
+ (0x171) 0x240000..0x25E6E5   <17>  Kana with Semi-Voiced Sound Mark
+ (0x172) 0x25E6E6..0x25FFFF   <18>  Emoji Flag Sequence
+ (0x173) 0x260000..0x2FFFFF   <18>  Emoji with Modifier Fitzpatrick
+ (0x175) 0x400000..0x7FFFFF   <16>  Standardized Variation Sequence
+ (0x176) 0x800000..0x80007F   <18>  Emoji Keycap Sequence
+ (0x177) 0x800080..0xFFFFFF   <16>  Ideographic Variation Sequence, VS17..VS48
+ (0x178) 0x1000000..0x43FFFFF <16>  Ideographic Variation Sequence, VS49..VS256
 
 Ideographic Description Characters は upTeX 1.29で <16> から <18> に変更した。
 
-◇ 合成文字の内部コード (upTeX 1.35以降)
-Unicodeで複数のコードポイントで一つの書記素に対応させる文字(合成文字)を扱うために
-文字コード値0x220000以上のUnicode範囲外をupTeXの内部コードおよび
-DVIの出力時の文字コードとして利用する。
-内部コードを得るのには以下の演算を用いる。
-UTF-8では正規のUnicodeのコードポイントの列に戻して表現する。
-・Kana with (Semi-)Voiced Sound Mark
-  ((modifier - 0x3099) << 17) + 0x220000 + base
-・Emoji Modifier Fitzpatrick
-  ((modifier - 0x1F3FB) << 17) + 0x260000 + base
-・RGI Emoji Flag Sequence
-  (base << 8) + modifier + 0x250000;
-・RGI Emoji Keycap Sequence (U+00xx U+FE0F U+20E3)
-  0x800000 + base;
-・Standardized Variation Sequence
-  ((modifier - 0xFE00) << 18) + 0x400000 + base
-・Ideographic Variation Sequence
-  ((modifier - 0xE0100) << 18) + 0x800000 + base
+◇ Unicode合成文字の扱い (upTeX-1.35以降)
+Unicodeでは一つの文字(書記素)を表すために複数のコードポイントの連なり(シーケンス)で
+示すことが規定されている文字がある。例えば異体字セレクタや絵文字シーケンスなどが含まれる。
+異体字セレクタによる異体字の指定(同じ文字の別の字形になる)と
+合成用文字による文字の合成(別の字になる)とは本来意味が異なるが、
+ここではそれらをまとめてUnicode合成文字と呼ぶ。
+upTeXの処理の入口において基底文字(base)の直後にmodifierが現れた場合には
+それを合成文字用拡張文字コード(内部コード)に置き換えてノード化し
+内部処理を経てDVIファイルへの書き込みを行う。
+dviwareはvf経由またはdviware本体で合成文字用拡張文字コードを扱えるようにする。
+upTeXで扱えるUnicode合成文字は特定の組み合わせに限定する。
+UTF-8では必ず正規のUnicodeのコードポイントの列に戻して表現する。
+
+対応しているシーケンスと合成文字用拡張文字コード(内部コード)は以下。
+
+<1> 仮名+(半)濁点
+base: 平仮名、片仮名、変体仮名
+mod:  U+3099, U+309A
+内部コード: ((mod - 0x3099) << 17) + 0x220000 + base
+内部コードの範囲: 0x220000..0x25E6E5
+
+<2> 絵文字(国旗)  RGI Emoji Flag Sequence
+base: U+1F1E6..1F1FF
+mod:  U+1F1E6..1F1FF
+内部コード: ((base & 0xFF) << 8) + (mod & 0xFF) + 0x250000
+内部コードの範囲: 0x25E6E6..0x25FFFF
+
+<3> 絵文字(肌色)
+base: 特定の絵文字
+mod:  U+1F3FB..U+1F3FF
+内部コード: ((mod - 0x1F3FB) << 17) + 0x260000 + base
+内部コードの範囲: 0x260000..0x2FFFFF
+
+<4> キーキャップ  RGI Emoji Keycap Sequence  (base+mod1+mod2のシーケンス)
+base: U+0000..007F
+mod1: U+FE0F (SVS)
+mod2: U+20E3
+内部コード: 0x800000 + base
+base+mod1の内部コードの範囲: 0x7C0000..0x7C007F
+3文字シーケンスの内部コードの範囲: 0x800000..0x80007F
+
+<5> SVS (Standardized Variation Sequence)
+base: 漢字他
+mod:  U+FE00..FE0F
+内部コード: ((mod - 0xFE00) << 18) + 0x400000 + base
+内部コードの範囲: 0x400000..0x7FFFFF
+
+<6> IVS (Ideographic Variation Sequence)
+base: 漢字
+mod:  U+E0100..E011F
+内部コード: ((mod - 0xE0100) << 18) + 0x800000 + base
+内部コードの範囲: 0x800080..0xFFFFFF
+
 
 ◇ upbibtex の is.kanji.str$
 upbibtex(内部コード -kanji-internal=uptex)の is.kanji.str$ の返り値は以下に示すとおりとする。
@@ -611,9 +653,8 @@ euptex    TeX Live の Build/source/web2c で本配布の uptexdir の置き換�
 dvips     TeX Live 2010 に取り込まれた。
 dvipdfmx  TeX Live svn に r24509 あたりで取り込まれた。
   set3も含めて動いている。
-  ただし、set3で、「内部コードがUTF-32, CMapがUniXXX-UTF16」であること
-  を仮定したハードコーディングになっており、柔軟性は乏しい。
-  bookmark 作成は UTF8-UCS2, UTF8-UTF16 の CMap または、
+  bookmark 作成は dvipdfmxの--pdfm-str-utf8オプションまたは、
+  UTF8-UCS2, UTF8-UTF16 の CMap または、
   convbkmk.rbの-oオプションを必要とする。
 dvi2tty   TeX Live svn に r24634 あたりで取り込まれた。
   dvi2tty の NTT JTeX/pTeX 対応版を upTeX 対応にした。
@@ -655,7 +696,7 @@ utfパッケージ  uptex-0.30では動いている。
 ◇ 今後の課題、要検討事項など
 < 内部実装関連 >
 [1] Unicodeで複数のコードポイントを必要とする文字(IVS,
-  文字合成で表される仮名等)を使えるようにする。
+  文字合成で表される仮名等)を使えるようにする。(upTeX-1.35以降取り組み中)
 < dviware, 外部ソフト関連 >
 [2] upmpost で多書体が使えるようにする。
 < その他 >
