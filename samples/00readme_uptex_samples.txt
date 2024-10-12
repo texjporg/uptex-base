@@ -22,7 +22,7 @@ sangoku-uplatex.tex, sangoku-uptex.tex
 
 aozora-ujarticle-utf8.tex, aozora-ujbook-utf8.tex,
 aozora-ujreport-utf8.tex, aozora-utarticle-utf8.tex,
-aozora-utbook-utf8.tex, aozora-utf8.tex, aozora-utreport-utf8.tex
+aozora-utbook-utf8.tex, aozora-utreport-utf8.tex
   : test for document classes
 
 adobe-cid.tex, adobe-cns-utf8.tex, adobe-gb-utf8.tex,
