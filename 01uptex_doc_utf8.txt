@@ -69,7 +69,7 @@ CJKのレパートリーの範囲を和文の組版に利用する。8bit欧文�
 配布にも収録していただけるようになり、当初の目標だったpTeX/pLaTeXの
 自然なUnicode拡張による和文+CJKの充実と、さらに、日本語(+東アジア)
 標準TeXの中の一つとして地位を占めるところまで達成できたように思う。
-関係各位にこの場を借りてお礼を申し上げる。
+関係各位に御礼を申し上げる。
 一方、2007年の開発当時を振り返ってみると、XeTeXやLuaTeXの台頭は
 予想できたものの、8bit欧文LaTeX(pdfLaTeX)までもUnicode化が進展し
 規定の文字コードがUTF-8になるところまでは想像が難しかった。
@@ -127,8 +127,9 @@ pTeX/pLaTeX系列のUnicode版後継者としての役割をこれからも引�
     CJKトークンの上限の拡張を行い、
     CJKトークンを (kcatcode 5bit+charcode 24bit) で扱う。
     pTeX からの改造量はやや大きいが、欧文 TeX との対称性は良くなる。
-<7> U+2xxxx (Supplimentary Ideograph Plane, SIP) の漢字など
-    BMP以上かつ全角幅の文字はサポートする。
+<7> U+2xxxx (Supplimentary Ideograph Plane, SIP) や
+    U+3xxxx (Tertiary Ideograph Plane, TIP) の漢字など
+    BMP以上かつ全角幅の文字をサポートする。
     BMP以上かつ全角幅以外の文字は、jfmの拡張によりサポートする。
 <8> 日本ローカル色を薄めるだけの目的での機能変更、整理、削除は行わない。
     \xkanjiskip, \euc などはそのままの名称、機能で維持する。
@@ -171,7 +172,7 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
     U+FFFF以下の文字はset2で、U+FFFFを越える文字はset3で扱う。
     和文として扱える文字コードの最大値はUnicodeの最大値U+10FFFF。
     さらに、0x220000以上0xFFFFFF以下をUnicode合成文字用の
-    内部文字コードとして使用する。(upTeX-1.35新規)
+    内部文字コードとして使用する(upTeX-1.35新規)。
 <5> 和文、欧文の切替えは、コードレンジのチェックに加えkcatcodeを見て行う。
     kcatcode=16,17,18なら漢字,かな,和文その他記号(pTeXと同様)で、
     kcatcode=15なら欧文8bit、非CJKの文字(新規)。
@@ -184,8 +185,8 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 <6> 欧文と判定されればUTF-8の8bit可変長文字列として内部処理する。
     オリジナルの欧文TeXと完全に互換の処理ができる。
     すなわち、欧文LaTeXの\inputenc{utf8}やBabelが障害なく利用できる。
-<7> (upTeX-2.00新規) kcatcode=14(latin_ucs)が設定されてる状態で
-    UTF-8の入力バッファで8 bit 文字コード列が正規のUTF-8として
+<7> (upTeX-2.00新規) kcatcode=14(latin_ucs)が設定された状態で
+    UTF-8の入力バッファで8bit文字コード列が正規のUTF-8として
     U+2E7F 以下と読み取れるとき、Unicodeの欧文であると解釈して
     符号位置 0x80～0x2E7F の欧文文字ノードを生成する。
     オリジナルの欧文Omega/Alephと互換の処理ができる。
@@ -221,8 +222,11 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
    その他文字コードが255以下の場合には8bit 欧文動作、
    256以上の場合には和文動作となる。
    \kchar`<文字>, \kchardef では文字コード範囲によらず和文動作となる。
-<16> set3を含むフォント(vf)を含むフォント(vf)を標準とする。
-<17> ISO-2022-JP{-3,-2004}, EUC-JISX0213, Shift_JISX0213などの
+<16> (upTeX-2.00新規) 新しく ^^^^pqrs 記法を追加。そのときの
+   kcatcodeの設定の状態に依らず欧文16bit Unicodeの U+PQRS になる。
+   欧文Omega/Alephと互換。
+<17> set3を含むフォント(vf)を含むフォント(vf)を標準とする。
+<18> ISO-2022-JP{-3,-2004}, EUC-JISX0213, Shift_JISX0213などの
    JIS X 0213系エンコーディングも使用可能にする案もあったが
    開発凍結する。
 
@@ -328,7 +332,8 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
  と非互換になる。
 [n] 和文のみ可能。欧文は不可。pTeXとの互換性のため用意。
 [o] 和文のみ可能。欧文は不可。
-[p] UTF-8の可変長多バイトのみ可能。active文字化してはならない。
+[p] UTF-8の可変長多バイトのみ可能であり、文字集合はUnicodeのみを想定する。
+ active文字化してはならない。
 (**) "Latin-1 Letters" (0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF),
  "Latin Extended-A" (0x100..0x17F) の文字はupTeX-1.23より、
  また "Latin Extended-B" (0x180..0x24F),
