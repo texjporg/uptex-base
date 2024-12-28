@@ -1,8 +1,8 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2024.10.12 Ver1.35
+2024.12.28 Ver2.00
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
-◇ upTeX開発のねらい
+◇ upTeX開発のねらい  upTeX Ver0.02 〜 Ver1.35
   ASCII pTeX/pLaTeXは、高品質の日本語組版ソフトウェアとして、いくつ
 かあるTeXの日本語化の中でもデファクトスタンダードの地位にある。縦組
 の機能や日本語組版の品質はもとより、信頼性の高さや周辺ソフトウェアの
@@ -62,6 +62,32 @@ CJKのレパートリーの範囲を和文の組版に利用する。8bit欧文�
 し分のない高みを出発点として、無理のない自然な拡張を着実に行っていけ
 ば、成果を出しつつ目標に近づけるであろうと目論んでいる。
 
+◇ upTeX開発のねらい  upTeX Ver2.00 〜
+  upTeX/upLaTeX Ver1.xx は、2007年の開発開始以来、私自身の作業に
+加え多くの方のご協力を得て機能追加や周辺環境の充実、不具合の修正が継続
+し、お蔭様でユーザー各位の幅広い支持を受けることができた。TeX Liveの
+配布にも収録していただけるようになり、当初の目標だったpTeX/pLaTeXの
+自然なUnicode拡張による和文+CJKの充実と、さらに、日本語(+東アジア)
+標準TeXの中の一つとして地位を占めるところまで達成できたように思う。
+関係各位に御礼を申し上げる。
+一方、2007年の開発当時を振り返ってみると、XeTeXやLuaTeXの台頭は
+予想できたものの、8bit欧文LaTeX(pdfLaTeX)までもUnicode化が進展し
+規定の文字コードがUTF-8になるところまでは想像が難しかった。
+upTeX/upLaTeXは今まで欧文の処理はKnuth TeX以来の伝統的な8bitの
+範囲にとどめていたが、今となっては和文(またはCJK)との2階建て構造が
+複雑でわかりにくい上、XeLaTeXやLuaLaTeXのUnicodeを前提とした処理
+とupLaTeXの欧文8bit部分が馴染まずに苦労することが増えてきた。その
+結果LaTeXの進化についていけないだけでなくupLaTeXそのものの存続を
+危ぶむ声も出てきている。
+そこで、upTeX/upLaTeXが欧文16bitを扱えるようになり和文と欧文の
+どちらも「Unicode 1文字1トークン」で扱えるようになれば、そのような
+危機的状況を回避する鍵になりそうだ。それも、具体的にはkcatcodeの
+拡張による追加オプションとして、従来の欧文8bit動作への副作用なしに
+実装できそうだ。
+しがらみのあるソフトウェアの延命措置のきらいがあることは否めないが、
+pTeX/pLaTeX系列のUnicode版後継者としての役割をこれからも引き続き
+担っていくことを目指したい。
+
 
 ◇ 主な開発方針
 <0> pTeX の基本的な機能はそのままで、内部の和文処理を EUC/SJIS から
@@ -86,29 +112,37 @@ CJKのレパートリーの範囲を和文の組版に利用する。8bit欧文�
     pTeX から見ると欧文部分の機能が向上しているように見えるが、
     欧文 TeX から見ると
     pTeX が欧文 TeX の機能を阻害していた部分を取り除いただけである。
-<4> pTeX の和文トークンを CJKトークンとして扱い、
+<4> (upTeX-2.00新規、実験的) 16bit 欧文コードの処理が可能になるよう、
+    和文/欧文の切替え用にkcatcodeを拡張する。
+    このとき欧文の文字コードはUnicodeのみを想定し、最大値 U+2E7F
+    までとする。和文のみならず欧文も「Unicode 1文字1トークン」
+    (catcode 4bit + charcode 16bit) となる。フォントのメトリック
+    としては OFM Level-0 を読み込んで用いるように拡張する。
+    8bit 欧文との混在も、kcatcodeの切り替えにより可能である。
+    フォントまで含めた安定な環境として提供できるにはまだ時間が掛かりそう
+    であり、当面「実験的」と位置づけることにする。
+<5> pTeX の和文トークンを CJKトークンとして扱い、
     中国語/韓国語対応を強化する。
-<5> pTeX の和文トークンの 16bit を単純に Unicode (UCS2等) 化すると
-    欧文トークン (catcode 4bit + charcode 8bit) と衝突してしまう。
+<6> pTeX の和文トークンの 16bit を単純に Unicode (UCS2等) 化すると
+    欧文トークン (catcode 4bit + charcode 16bit) と衝突してしまう。
     これを回避する手法は何通りか考えられるが、
     CJKトークンの上限の拡張を行い、
     CJKトークンを (kcatcode 5bit+charcode 24bit) で扱う。
     pTeX からの改造量はやや大きいが、欧文 TeX との対称性は良くなる。
-<6> U+2xxxx (Supplimentary Ideograph Plane, SIP) の漢字など
-    BMP以上かつ全角幅の文字はサポートする。
+<7> U+2xxxx (Supplimentary Ideograph Plane, SIP) や
+    U+3xxxx (Tertiary Ideograph Plane, TIP) の漢字など
+    BMP以上かつ全角幅の文字をサポートする。
     BMP以上かつ全角幅以外の文字は、jfmの拡張によりサポートする。
-<7> 日本ローカル色を薄めるだけの目的での機能変更、整理、削除は行わない。
+<8> 日本ローカル色を薄めるだけの目的での機能変更、整理、削除は行わない。
     \xkanjiskip, \euc などはそのままの名称、機能で維持する。
     理由は、少々の手当で日本ローカル色が払拭できるはずもなく、
     pTeX との互換性を下げるだけに過ぎない結果になるであろうから。
 この方針により、pTeX が抱えていた弱点はいくつか解消できるものの、
 pTeX の特殊性 (全角等幅フォント前提の jfm 等) は保たれているし、
-pdfeTeX など欧文 TeX の近年の動向から遠く離れたままであるし、
-欧文部分 は 8bit のままであるし、
+pdfTeX など欧文 TeX の近年の動向から遠く離れたままであるし、
 OpenType の新技術などを駆使できているわけでもない。
-世界の最新の TeX 環境や
-他の Unicode 拡張 (Omega/Aleph, XeTeX, LuaTeX 等)と比較すると、
-旧くさく中途半端な印象を受けるかもしれない。
+世界の最新の TeX 環境や他の Unicode 拡張 (XeTeX, LuaTeX 等)と
+比較すると、旧くさく中途半端な印象を受けるかもしれない。
 しかし、pTeX との互換性がほぼ 100% の Unicode 版 CJK TeX となり
 pTeX を中心に推移してきた日本の TeX ユーザーが
 過去の資産を利用しつつ手早く Unicode のおいしい部分を享受するために、
@@ -140,10 +174,12 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
     U+FFFF以下の文字はset2で、U+FFFFを越える文字はset3で扱う。
     和文として扱える文字コードの最大値はUnicodeの最大値U+10FFFF。
     さらに、0x220000以上0xFFFFFF以下をUnicode合成文字用の
-    内部文字コードとして使用する。(upTeX-1.35新規)
+    内部文字コードとして使用する(upTeX-1.35新規)。
 <5> 和文、欧文の切替えは、コードレンジのチェックに加えkcatcodeを見て行う。
     kcatcode=16,17,18なら漢字,かな,和文その他記号(pTeXと同様)で、
-    kcatcode=15なら欧文、非CJKの文字(新規)。
+    kcatcode=15なら欧文8bit、非CJKの文字(新規)。
+    kcatcode=14(latin_ucs)なら欧文16bit Unicode、
+    非CJKの文字(upTeX-2.00新規)。
     kcatcode=19ならhangul(新規)。hangul直後の改行は欧文同様
     空白と看做すが、それ以外の点では、漢字と全く同じ動作になっている。
     kcatcode=20ならmodifier(upTeX-1.35新規)。Unicodeで合成用の文字
@@ -151,39 +187,48 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 <6> 欧文と判定されればUTF-8の8bit可変長文字列として内部処理する。
     オリジナルの欧文TeXと完全に互換の処理ができる。
     すなわち、欧文LaTeXの\inputenc{utf8}やBabelが障害なく利用できる。
-<7> 和文と判定されればpTeXと同様の処理ができる。
+<7> (upTeX-2.00新規) kcatcode=14(latin_ucs)が設定された状態で
+    UTF-8の入力バッファで8bit文字コード列が正規のUTF-8として
+    U+2E7F 以下と読み取れるとき、Unicodeの欧文であると解釈して
+    符号位置 0x80～0x2E7F の欧文文字ノードを生成する。
+    オリジナルの欧文Omega/Alephと互換の処理ができる。
+<8> 和文と判定されればpTeXと同様の処理ができる。
     すなわち、組版はもちろん、
     漢字,かなをコントロールワードに使う機能等が障害なく利用できる。
-<8> kcatcodeの切替えはUnicodeのBlock毎に可能。
+<9> kcatcodeの切替えはUnicodeのBlock毎に可能。
     ( http://www.unicode.org/Public/UNIDATA/Blocks.txt )
     ( ちなみに、オリジナルpTeXでは2バイト文字のうち上位バイト毎。 )
-<9> 和文の内部コードは、kcatcode 5bit+charcode 24bit で処理する。
-   内部コードが欧文(catcode 4bit+charcode 8bit)と重なることはない。
-<10> 従来のpTeXでは、kcatcodeの参照を文字コードからkcatcodeの表を引き
+<10> 和文の内部コードは、kcatcode 5bit+charcode 24bit で処理する。
+   内部コードが欧文(catcode 4bit+charcode 16bit)と重なることはない。
+<11> 従来のpTeXでは、kcatcodeの参照を文字コードからkcatcodeの表を引き
    間接的に行う方法を行っている。この方法を
    ファイルなどからの読み込み時と内部処理時の両方で行っている。
    upTeXでは、ファイルなどからの読み込み時は同様であるが、
-   内部処理時には、<9>でCJKトークン毎に振ったkcatcodeを読み込むように
+   内部処理時には、<10>でCJKトークン毎に振ったkcatcodeを読み込むように
    変更した。たとえ同じ文字コードでもkcatcodeの途中変更を行えば、
    CJKトークン毎に異なるkcatcodeを割り当てることが出来るようになる。
-<11> 新しく \ucs プリミティヴを新設。
+<12> 新しく \ucs プリミティヴを新設。
     \char\ucs"301C, \kchar\ucs"301C はU+301C(波ダッシュ)になる。
-<12> uptex, uplatex などでは -kanji=uptex と指定して
+<13> uptex, uplatex などでは -kanji=uptex と指定して
    動くように実装した。
    その他の漢字コード指定の場合は、
    基本的に従来のpTeXと同様の結果になるはず。
-<13> 各文字が実際のフォントで利用可能な文字かどうかの判定は
+<14> 各文字が実際のフォントで利用可能な文字かどうかの判定は
    uptex 本体では行わない。この判定は dviware で行うことになる。
    「任意の部分実装を容認している Unicode において
    文字集合の範囲の固定的な判定は不可能だ」という理由もあるが、
    この仕様は pTeX でも同様となっている。
-<14> 新しく \kchar, \kchardef プリミティヴをを追加。
-   \char`<文字>, \chardef では文字コードが255以下の場合には欧文動作、
+<15> 新しく \kchar, \kchardef プリミティヴをを追加。
+   \char`<文字>, \chardef では
+   kcatcode=14かつ文字コードが128〜0x2E7Fの場合には16bit 欧文動作、
+   その他文字コードが255以下の場合には8bit 欧文動作、
    256以上の場合には和文動作となる。
    \kchar`<文字>, \kchardef では文字コード範囲によらず和文動作となる。
-<15> set3を含むフォント(vf)を含むフォント(vf)を標準とする(2018年2月以降)。
-   dviwareのset3対応の普及が進んだため。
-<16> ISO-2022-JP{-3,-2004}, EUC-JISX0213, Shift_JISX0213などの
+<16> (upTeX-2.00新規) 新しく ^^^^pqrs 記法を追加。そのときの
+   kcatcodeの設定の状態に依らず欧文16bit Unicodeの U+PQRS になる。
+   欧文Omega/Alephと互換。
+<17> set3を含むフォント(vf)を含むフォント(vf)を標準とする。
+<18> ISO-2022-JP{-3,-2004}, EUC-JISX0213, Shift_JISX0213などの
    JIS X 0213系エンコーディングも使用可能にする案もあったが
    開発凍結する。
 
@@ -204,14 +249,14 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 ↓
 <2> multistrlen,kcatcode等で和文/欧文を判定して変換
 ↓
-(3) 内部レジスター [和文5+24bit, 欧文4+8bit] { 最大29bit 欧文と和文で別構成※1 }
+(3) 内部レジスター [和文5+24bit, 欧文4+16bit] { 最大29bit 欧文と和文で別構成※1 }
 ↓
 <3> マクロ展開
 ↓
-(4) 組版処理 [和文5+24bit, 欧文4+8bit]
-(4a) tfm, jfm, (ofm)へのアクセス [和文16bit, 欧文4+8bit] ※2
+(4) 組版処理 [和文5+24bit, 欧文4+16bit]
+(4a) tfm, jfm, ofmへのアクセス [和文24bit, 欧文4+16bit] ※2
 <4a> ptexenc
-(4b) dviへの入出力 [和文5+24bit, 欧文4+8bit] ※3
+(4b) dviへの入出力 [和文5+24bit, 欧文4+16bit] ※3
 <4b> ptexenc
 ↓
 (5) 出力バッファー [8bit可変長(UTF8)]
@@ -220,8 +265,7 @@ pTeX を中心に推移してきた日本の TeX ユーザーが
 ↓
 (6) 出力 (log, 端末など) [8bit可変長(UTF8)]
 
-※1: 欧文はcatcode 4bit + 文字コード8bit
-(Omegaではcatcode 4bit + 文字コード16bitだが、Omegaへの拡張を視野にいれたい。)
+※1: 欧文はcatcode 4bit + 文字コード16bit (最大0x2E7F)。
 和文はkcatcode 5bit + 文字コード24bit。
 オリジナルpTeXでは、和文は文字コード16bit,
 kcatcodeは、文字コードを引数として表を参照して求めていたが、
@@ -232,11 +276,9 @@ U+10FFFFのUnicode最大値までを和文として処理できることを想�
 U+2xxxxのchar typeをdefaultの0番と解釈し、
 jfmは従来のpTeX(16bit)の仕様の範囲で処理が可能。
 U+FFFF超かつ可変幅は拡張jfmで対応する。
-(2), (3), (4)のあたりで欧文8bit(TeX)との共存も可能。
-欧文のcatcodeで使用しているレンジをさらに上位バイトに移動し、
-和文24bit, 欧文16bit(Omega) と共存可能にし、
-ptexencにOTPインタープリターを突っ込み、
-ofmとjfmの混在した組版を可能にすれば
+(2), (3), (4)のあたりで欧文8bit(TeX),欧文16bit(Omega/Aleph)との
+共存も可能。
+さらにOTPインタープリターを突っ込めば
 upTeX + Omega = upOmegaが出来る???
 
 ◇ 文字コード関連のまとめ
@@ -266,6 +308,14 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
 〜0xFF   ○■[h] (○)■[j]  ○    ○[m]   ■[o]
 0x100〜  ■      (△)■[k]  —    ■[n]   ■[o]
 
+[upTeX(v.2.00〜) で kcatcode=14(latin_ucs) のとき]
+         token    text   ^^^^abcd  \char
+〜0x7F   ○       ○       ○    ○
+〜0xFF   ○       ○[p]    ○    ○
+〜0x2E7F ○       —       ○    ○
+0x2E80〜 —       —       —    —
+
+
 [a] 8bit1byteで扱うのが基本。[b]のためにこの領域が使われることもある。
 [b] 8bit多byteの処理をactive文字化で実現する手法(inputenc,CJK-LaTeX等)がある。
 [c] SJIS/EUCのパターンに合わない場合のみ通る。欧文TeXから見ると制限事項になる。
@@ -284,6 +334,8 @@ text:SJIS/EUC/UTF-8など入出力の文字コード
  と非互換になる。
 [n] 和文のみ可能。欧文は不可。pTeXとの互換性のため用意。
 [o] 和文のみ可能。欧文は不可。
+[p] UTF-8の可変長多バイトのみ可能であり、文字集合はUnicodeのみを想定する。
+ active文字化してはならない。
 (**) "Latin-1 Letters" (0xAA, 0xBA, 0xC0..0xD6, 0xD8..0xF6, 0xF8..0xFF),
  "Latin Extended-A" (0x100..0x17F) の文字はupTeX-1.23より、
  また "Latin Extended-B" (0x180..0x24F),
@@ -422,8 +474,9 @@ Korean               HYSMyeongJo-Medium  HYGoThic-Medium
 
 
 ◇ kcatcode のデフォルト値
-kcatcodeの意味は、15: not_cjk, 16: kanji, 17: kana, 18: other_kchar, 19: hangul, 20: modifier
-kcatcodeが15(not_cjk)の場合は欧文扱いになる。
+kcatcodeの意味は、14: latin_ucs, 15: not_cjk, 16: kanji, 17: kana,
+18: other_kchar, 19: hangul, 20: modifier
+kcatcodeが14(latin_ucs)または15(not_cjk)の場合は欧文扱いになる。
 kcatcodeは原則としてUnicodeのblock毎に与えられる。
 (Ref. http://www.unicode.org/Public/UNIDATA/Blocks.txt)
 ただし、例外の文字集合が7個ある。
@@ -599,7 +652,7 @@ UnicodeとCJK(JIS X 0213等)の文字を想定して設定されたものの中�
 
 
 ◇ 動作状況
-◎ uptex-1.xxの配布に含めたもの
+◎ uptex-2.xxの配布に含めたもの
 uptex     動いている。無問題。
 ◎ 別の配布に含めたもの
 otfパッケージ  japanese-otf-uptex として公開、CTANに登録した。
@@ -679,7 +732,7 @@ Unicodeのファイル名  Unix/LinuxではlocaleがUTF-8ならば使用出来�
   Windowsでは、TeX Live 2014 に取り込まれた。
 ◎ 現在の配布に含んでいないもの
 xdvi      uptex-0.30ではset3も含めて動いている。無問題。
-  uptex-1.xxの配布には含まない。
+  uptex-2.xxの配布には含まない。
 dviout    set2の範囲では改造無しでフォントの設定のみでほぼ動いている。
   set3の範囲は文字化けしてしまうが、落ちることはない。
   OTFパッケージの \CID{} が Unicode 経由なのは、 pLaTeX と同様。
@@ -690,16 +743,17 @@ dviout    set2の範囲では改造無しでフォントの設定のみでほぼ
   http://tug.org/svn/dviout?view=revision&revision=178
   https://ctan.org/pkg/dviout
 utfパッケージ  uptex-0.30では動いている。
-  uptex-1.xxの配布には含まない。
+  uptex-2.xxの配布には含まない。
 
 
 ◇ 今後の課題、要検討事項など
 < 内部実装関連 >
 [1] Unicodeで複数のコードポイントを必要とする文字(IVS,
   文字合成で表される仮名等)を使えるようにする。(upTeX-1.35以降取り組み中)
+[2] 16bit欧文のサポートを充実させる。(upTeX-2.00以降取り組み中)
 < dviware, 外部ソフト関連 >
-[2] upmpost で多書体が使えるようにする。
+[3] upmpost で多書体が使えるようにする。
 < その他 >
-[3] ドキュメントの充実。
-[4] 英語ドキュメントを書く。
+[4] ドキュメントの充実。
+[5] 英語ドキュメントを書く。
 

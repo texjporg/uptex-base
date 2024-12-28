@@ -25,6 +25,11 @@ aozora-ujreport-utf8.tex, aozora-utarticle-utf8.tex,
 aozora-utbook-utf8.tex, aozora-utreport-utf8.tex
   : test for document classes
 
+udhr-algrya.tex, udhr-cgrmd.tex, udhr-clara.tex, udhr-dejavu.tex,
+udhr-gntm.tex, udhr-kurier.tex, udhr-lmdrn.tex, udhr-noto.tex,
+udhr-roboto.tex, udhr-source.tex, udhr-common.tex
+  : test for encoding conversion between UTF-8 and TeX 8bit encodings
+
 adobe-cid.tex, adobe-cns-utf8.tex, adobe-gb-utf8.tex,
 adobe-jp-utf8.tex, adobe-kr-utf8.tex
   : test for Adobe-CNS, Adobe-GB, Adobe-Japan, Adobe-Korea

@@ -1,5 +1,6 @@
 UPTEX = uptex
 PTEX = ptex
+EUPTEX = euptex
 UPLATEX = uplatex
 PLATEX = platex
 UPBIBTEX = upbibtex
@@ -20,7 +21,7 @@ CONVBKMKO = convbkmk -g -o
 PS2PDF = ps2pdf
 
 all: uplatex-euc.fmt uplatex-sjis.fmt \
- misc kin widow uptex uplatex aozora adobe \
+ misc kin widow uptex uplatex aozora udhr adobe \
  babel greek punct encswitch \
  jscman tfpl otf jbib jisuni dvi2tty bkmk consio eplatex texxet
 
@@ -102,6 +103,13 @@ aozora:
 		$(UPLATEX) aozora-$$cls-utf8 ; \
 		$(DVIPDFMX) aozora-$$cls-utf8 ; \
 		$(DVIPS) aozora-$$cls-utf8 ; \
+	done
+
+# It requires fonts distributed at CTAN.
+udhr:
+	for font in algrya cgrmd clara dejavu gntm kurier lmdrn noto roboto source; do \
+		$(EUPTEX) udhr-$$font ; \
+		$(DVIPDFMX) udhr-$$font ; \
 	done
 
 adobe: adobeu adobec
