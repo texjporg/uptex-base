@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2024.12.28 Ver2.00
+2025.01.03 Ver2.00
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい  upTeX Ver0.02 〜 Ver1.35
@@ -531,6 +531,10 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
 ○Unicodeの範囲外を合成文字に対応するupTeXの内部コードとして利用する
+ (0x15F) 0x110000..0x11FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x160) 0x120000..0x12FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x161) 0x130000..0x13FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x162) 0x140000..0x14FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
  (0x170) 0x220000..0x23FFFF   <17>  Kana with Voiced Sound Mark
  (0x171) 0x240000..0x25E6E5   <17>  Kana with Semi-Voiced Sound Mark
  (0x172) 0x25E6E6..0x25FFFF   <18>  Emoji Flag Sequence
