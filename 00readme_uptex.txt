@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- unicode version of ASCII pTeX, pLaTeX
-2025.01.03 Ver2.00
+2025.02.18 Ver2.00
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 [ Contents ]
