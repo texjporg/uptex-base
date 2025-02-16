@@ -1,5 +1,20 @@
 ### ChangeLog / 変更履歴
 
+2025.02.18 Ver2.00-20250218a
+  TeXLive svn r73997 base
+  Build/source/texk/web2c/uptexdir:
+    * uptex-m.ch:
+      Improve treatment of catcode and enable catcode mac_param(6)
+      for 16bit latin character.
+      Enable ^^^^xyzw format only when internal encoding is upTeX.
+      Increase size of auto_xsp_code().
+      Set default catcode of 16bit latin character to other_char(12).
+    * uptex-cat.test, tests/catcd.tex, tests/up-cat.log:
+      Add new tests for catcode of 16bit latin character.
+      https://github.com/texjporg/tex-jp-build/issues/170
+  00readme_uptex.txt, 01uptex_doc_utf8.txt:
+    Update.
+
 2025.01.03 Ver2.00-20250103a
   TeXLive svn r73271 base
   Build/source/texk/web2c/uptexdir:
