@@ -1,5 +1,5 @@
 upTeX, upLaTeX  --- 内部unicode版 pTeX, pLaTeX の実装
-2025.02.18 Ver2.00
+2026.02.15 Ver2.02
 TANAKA, Takuji   ttk(at)t-lab(dot)opal(dot)ne(dot)jp
 
 ◇ upTeX開発のねらい  upTeX Ver0.02 〜 Ver1.35
@@ -506,21 +506,21 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x94)  0xD7B0.. 0xD7FF  <19>  Hangul Jamo Extended-B
  (0x99)  0xF900.. 0xFAFF  <16>  CJK Compatibility Ideographs
  (0x9C)  0xFE00.. 0xFE0F  <20>  Variation Selectors
- (0x115) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
- (0x116) 0x1B000..0x1B0FF <17>  Kana Supplement
- (0x117) 0x1B100..0x1B12F <17>  Kana Extended-A
- (0x118) 0x1B130..0x1B16F <17>  Small Kana Extension
- (0x145) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
- (0x146) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
- (0x147) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
- (0x148) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
- (0x149) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
- (0x14A) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
- (0x14B) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
- (0x14C) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
- (0x14D) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
- (0x14E) 0x323B0..0x3347F <16>  CJK Unified Ideographs Extension J (Unicode 17.0予定)
- (0x15B) 0xE0100..0xE01EF <20>  Variation Selectors Supplement
+ (0x11A) 0x1AFF0..0x1AFFF <17>  Kana Extended-B
+ (0x11B) 0x1B000..0x1B0FF <17>  Kana Supplement
+ (0x11C) 0x1B100..0x1B12F <17>  Kana Extended-A
+ (0x11D) 0x1B130..0x1B16F <17>  Small Kana Extension
+ (0x14C) 0x20000..0x2A6FF <16>  CJK Unified Ideographs Extension B
+ (0x14D) 0x2A700..0x2B73F <16>  CJK Unified Ideographs Extension C
+ (0x14E) 0x2B740..0x2B81F <16>  CJK Unified Ideographs Extension D
+ (0x14F) 0x2B820..0x2CEAF <16>  CJK Unified Ideographs Extension E
+ (0x150) 0x2CEB0..0x2F7FF <16>  CJK Unified Ideographs Extension F
+ (0x151) 0x2EBF0..0x2EE5F <16>  CJK Unified Ideographs Extension I
+ (0x152) 0x2F800..0x2FFFF <16>  CJK Compatibility Ideographs Supplement
+ (0x153) 0x30000..0x3134F <16>  CJK Unified Ideographs Extension G
+ (0x154) 0x31350..0x323AF <16>  CJK Unified Ideographs Extension H
+ (0x155) 0x323B0..0x3347F <16>  CJK Unified Ideographs Extension J
+ (0x162) 0xE0100..0xE01EF <20>  Variation Selectors Supplement
 (上記の文字の範囲は実装に基づいており、Blocks.txtに記述されている範囲より広い場合がある)
 ○Unicode blockの例外
  (0x1F9) 0x3099, 0x309A       <20>  Combining Kana (Semi-)Voiced Sound Mark
@@ -531,18 +531,18 @@ kcatcodeは原則としてUnicodeのblock毎に与えられる。
  (0x1FE) 0xFF10..0xFF19, 0xFF21..0xFF3A, 0xFF41..0xFF5A <17>  Fullwidth digit and latin alphabet
  (0x1FF) 0xFF66..0xFF6F, 0xFF71..0xFF9D                 <17>  Halfwidth katakana
 ○Unicodeの範囲外を合成文字に対応するupTeXの内部コードとして利用する
- (0x15F) 0x110000..0x11FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
- (0x160) 0x120000..0x12FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
- (0x161) 0x130000..0x13FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
- (0x162) 0x140000..0x14FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
- (0x170) 0x220000..0x23FFFF   <17>  Kana with Voiced Sound Mark
- (0x171) 0x240000..0x25E6E5   <17>  Kana with Semi-Voiced Sound Mark
- (0x172) 0x25E6E6..0x25FFFF   <18>  Emoji Flag Sequence
- (0x173) 0x260000..0x2FFFFF   <18>  Emoji with Modifier Fitzpatrick
- (0x175) 0x400000..0x7FFFFF   <16>  Standardized Variation Sequence
- (0x176) 0x800000..0x80007F   <18>  Emoji Keycap Sequence
- (0x177) 0x800080..0xFFFFFF   <16>  Ideographic Variation Sequence, VS17..VS48
- (0x178) 0x1000000..0x43FFFFF <16>  Ideographic Variation Sequence, VS49..VS256
+ (0x166) 0x110000..0x11FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x167) 0x120000..0x12FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x168) 0x130000..0x13FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x169) 0x140000..0x14FFFF   <16>  for japanese-otf, japanese-otf-uptex macros
+ (0x177) 0x220000..0x23FFFF   <17>  Kana with Voiced Sound Mark
+ (0x178) 0x240000..0x25E6E5   <17>  Kana with Semi-Voiced Sound Mark
+ (0x179) 0x25E6E6..0x25FFFF   <18>  Emoji Flag Sequence
+ (0x17A) 0x260000..0x2FFFFF   <18>  Emoji with Modifier Fitzpatrick
+ (0x17C) 0x400000..0x7FFFFF   <16>  Standardized Variation Sequence
+ (0x17D) 0x800000..0x80007F   <18>  Emoji Keycap Sequence
+ (0x17E) 0x800080..0xFFFFFF   <16>  Ideographic Variation Sequence, VS17..VS48
+ (0x17F) 0x1000000..0x43FFFFF <16>  Ideographic Variation Sequence, VS49..VS256
 
 Ideographic Description Characters は upTeX 1.29で <16> から <18> に変更した。
 
@@ -752,12 +752,10 @@ utfパッケージ  uptex-0.30では動いている。
 
 ◇ 今後の課題、要検討事項など
 < 内部実装関連 >
-[1] Unicodeで複数のコードポイントを必要とする文字(IVS,
-  文字合成で表される仮名等)を使えるようにする。(upTeX-1.35以降取り組み中)
-[2] 16bit欧文のサポートを充実させる。(upTeX-2.00以降取り組み中)
+[1] 16bit欧文のサポートを充実させる。(upTeX-2.00以降取り組み中)
 < dviware, 外部ソフト関連 >
-[3] upmpost で多書体が使えるようにする。
+[2] upmpost で多書体が使えるようにする。
 < その他 >
-[4] ドキュメントの充実。
-[5] 英語ドキュメントを書く。
+[3] ドキュメントの充実。
+[4] 英語ドキュメントを書く。
 
